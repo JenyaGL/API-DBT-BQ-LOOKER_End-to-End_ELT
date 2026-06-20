@@ -1,0 +1,21 @@
+name: 'global_conflicts'
+version: '1.0.0'
+config-version: 2
+
+profile: 'jaffle_shop'
+
+seed-paths: ["seeds"]
+model-paths: ["models"]
+macro-paths: ["macros"]
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+seeds:
+  # Builds seeds into '<your_schema_name>_raw'
+  global_conflicts:
+    +schema: raw
+
+models:
+  global_conflicts:
+    +materialized: view
