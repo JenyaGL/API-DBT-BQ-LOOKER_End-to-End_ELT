@@ -41,5 +41,8 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: credentials.json
         run: |
+          cd global_conflicts
+          dbt debug
+          dbt clean
           dbt deps
           dbt run
