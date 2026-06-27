@@ -9,9 +9,12 @@
 -- Note: Ensure 'date_start' exists in your raw data
 
 WITH raw_conflicts AS (
-    SELECT * FROM {{ source('raw_ucdp', 'raw_data') }}
+    SELECT *,
+    CURRENT_TIMESTAMP() as loaded_at_timestamp
+    FROM {{ source('raw_ucdp', 'raw_data') }}
     {% if is_incremental() %}
-    WHERE date_start > (SELECT MAX(date_start) FROM {{ this }})
+    -- Filter by when the data was ingested, not when the conflict occurred
+    WHERE loaded_at_timestamp > (SELECT MAX(loaded_at_timestamp) FROM {{ this }})
     {% endif %}
 ),
 
@@ -28,7 +31,8 @@ renamed_and_cleaned AS (
     longitude,
     best AS estimated_fatalities,
     date_start,
-    date_end
+    date_end,
+    loaded_at_timestamp
 FROM raw_conflicts
 WHERE country IS NOT NULL
 )

@@ -1,8 +1,0 @@
-version: 2
-
-sources:
-  - name: raw_ucdp
-    database: global-conflicts-500009  # Your actual GCP Project ID
-    schema: raw_conflict_data          # The dataset we created in BigQuery
-    tables:
-      - name: raw_data     # The table name you used when uploading the CSV

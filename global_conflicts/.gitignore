@@ -3,3 +3,6 @@ dbt_internal_packages/
 logs/
 target/
 .env
+
+creds/
+*.json
