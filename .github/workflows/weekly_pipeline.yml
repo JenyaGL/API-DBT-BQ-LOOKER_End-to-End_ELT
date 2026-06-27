@@ -1,0 +1,45 @@
+name: Weekly UCDP Pipeline (Extract & dbt)
+
+on:
+  schedule:
+    # Runs at 02:00 AM every Monday
+    - cron: '0 2 * * 1' 
+  workflow_dispatch: 
+    # This allows you to click a "Run" button manually on GitHub for testing!
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        # Installing packages for Python and BigQuery adapter for dbt
+        run: |
+          pip install pandas requests google-cloud-storage dbt-bigquery
+
+      - name: Authenticate to Google Cloud
+        # This creates a temporary credentials.json file using your secure GitHub Secret
+        run: |
+          echo '${{ secrets.GCP_SA_KEY }}' > credentials.json
+        
+      - name: Run Python Extraction
+        # We tell Python to use the temporary credentials file we just made
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: credentials.json
+        run: python extract_load.py
+
+      - name: Run dbt Transformations
+        # We tell dbt to use the same credentials file
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: credentials.json
+        run: |
+          dbt deps
+          dbt run
