@@ -1,0 +1,157 @@
+==================== 2026-06-20T09:54:57.593859Z | 019ee474-73b8-7671-b8b2-df40689f5a26 ====================
+09:54:57.593930 [info ]: Installing dbt project and profile setup
+09:54:57.597638 [info ]: Info Created .vscode/extensions.json with dbt extension recommendation
+09:54:57.597692 [info ]: Success Project created successfully!
+09:54:57.597708 [info ]: Info Project name: jaffle_shop
+09:54:57.597723 [info ]: Info Project directory: jaffle_shop
+09:54:57.597735 [info ]: Info Setting up your profile...
+09:54:57.597796 [info ]: Info Creating new profile...
+09:55:08.599671 [info ]: No dbt_cloud.yml found - proceeding without cloud pre-population
+10:14:39.994866 [info ]: Success Profile written to /Users/mymac/.dbt/profiles.yml
+10:14:39.995018 [info ]: Validating profile inputs, adapters, and connection
+
+10:14:39.995066 [info ]: dbt-fusion 2.0.0-preview.190
+10:14:39.995349 [info ]: Started loading project
+10:14:39.998062 [info ]: Loading ~/.dbt/profiles.yml
+10:14:39.999249 [info ]: Finished loading project [  0.00s]
+10:14:39.999371 [info ]: Started debugging
+10:14:39.999438 [info ]: Debugging profile: dev
+10:14:39.999468 [info ]: Debugging dbt version: 2.0.0-preview.190
+10:14:39.999487 [info ]: Debugging platform: macos aarch64 (unix)
+10:14:39.999510 [info ]: Debugging adapter type: bigquery (remote)
+10:14:40.010746 [info ]: Debugging dependencies:
+  git: OK
+10:14:40.010846 [info ]: Debugging connection:
+  "database": "global-conflicts-500009",
+  "schema": "raw_conflict_data",
+  "method": "oauth",
+  "dataproc_batch": null
+10:14:41.922840 [info ]: Finished debugging [  1.92s]
+10:14:41.922922 [error]: [AuthenticationFailed (dbt1011)]: dbt was unable to connect to the specified database.
+The following error was returned:
+
+[BigQuery] bigquery: constructing client: credentials: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information
+
+Check your database credentials and try again. For more information, visit:
+https://docs.getdbt.com/docs/core/connect-data-platform/connection-profiles
+10:14:42.771411 [info ]: 
+==================== Execution Summary =====================
+Finished 'init' with 1 error for target 'dev' [19m 45s]
+==================== 2026-06-20T10:17:53.860993Z | 019ee489-73c4-78d0-bdd2-8d55b89055da ====================
+10:17:53.861071 [info ]: Installing dbt project and profile setup
+10:17:53.865096 [info ]: Info Created .vscode/extensions.json with dbt extension recommendation
+10:17:53.865148 [info ]: Success Project created successfully!
+10:17:53.865171 [info ]: Info Project name: jaffle_shop
+10:17:53.865187 [info ]: Info Project directory: jaffle_shop
+10:17:53.865202 [info ]: Info Setting up your profile...
+10:17:53.865284 [info ]: Info Creating new profile...
+10:17:56.374709 [info ]: No dbt_cloud.yml found - proceeding without cloud pre-population
+10:18:38.862965 [info ]: Success Profile written to /Users/mymac/.dbt/profiles.yml
+10:18:38.863118 [info ]: Validating profile inputs, adapters, and connection
+
+10:18:38.863159 [info ]: dbt-fusion 2.0.0-preview.190
+10:18:38.863419 [info ]: Started loading project
+10:18:38.865309 [info ]: Loading ~/.dbt/profiles.yml
+10:18:38.866231 [info ]: Finished loading project [  0.00s]
+10:18:38.866333 [info ]: Started debugging
+10:18:38.866397 [info ]: Debugging profile: dev
+10:18:38.866440 [info ]: Debugging dbt version: 2.0.0-preview.190
+10:18:38.866474 [info ]: Debugging platform: macos aarch64 (unix)
+10:18:38.866510 [info ]: Debugging adapter type: bigquery (remote)
+10:18:38.879524 [info ]: Debugging dependencies:
+  git: OK
+10:18:38.879615 [info ]: Debugging connection:
+  "database": "global-conflicts-500009",
+  "schema": "raw_conflict_data",
+  "method": "service-account",
+  "dataproc_batch": null
+10:18:39.744666 [debug]: Query executed on node unknown:
+select 1 as id
+10:18:40.750078 [info ]: Finished debugging [  1.88s]
+10:18:40.750503 [error]: [AuthenticationFailed (dbt1011)]: dbt was unable to connect to the specified database.
+The following error was returned:
+
+[BigQuery] googleapi: Error 403: Access Denied: Project global-conflicts-500009: User does not have bigquery.jobs.create permission in project global-conflicts-500009., accessDenied
+
+Check your database credentials and try again. For more information, visit:
+https://docs.getdbt.com/docs/core/connect-data-platform/connection-profiles
+10:18:41.639339 [info ]: 
+==================== Execution Summary =====================
+Finished 'init' with 1 error for target 'dev' [47.8s]
+==================== 2026-06-20T10:27:05.508626Z | 019ee491-dea3-7f92-96f5-7528021c63da ====================
+10:27:05.508697 [info ]: Installing dbt project and profile setup
+10:27:05.512799 [info ]: Info Created .vscode/extensions.json with dbt extension recommendation
+10:27:05.512872 [info ]: Success Project created successfully!
+10:27:05.512893 [info ]: Info Project name: jaffle_shop
+10:27:05.512912 [info ]: Info Project directory: jaffle_shop
+10:27:05.512927 [info ]: Info Setting up your profile...
+10:27:05.513004 [info ]: Info Creating new profile...
+10:27:09.108431 [info ]: No dbt_cloud.yml found - proceeding without cloud pre-population
+10:28:16.113221 [info ]: Success Profile written to /Users/mymac/.dbt/profiles.yml
+10:28:16.113329 [info ]: Validating profile inputs, adapters, and connection
+
+10:28:16.113351 [info ]: dbt-fusion 2.0.0-preview.190
+10:28:16.113573 [info ]: Started loading project
+10:28:16.114835 [info ]: Loading ~/.dbt/profiles.yml
+10:28:16.115629 [info ]: Finished loading project [  0.00s]
+10:28:16.115734 [info ]: Started debugging
+10:28:16.115795 [info ]: Debugging profile: dev
+10:28:16.115836 [info ]: Debugging dbt version: 2.0.0-preview.190
+10:28:16.115851 [info ]: Debugging platform: macos aarch64 (unix)
+10:28:16.115884 [info ]: Debugging adapter type: bigquery (remote)
+10:28:16.126134 [info ]: Debugging dependencies:
+  git: OK
+10:28:16.126268 [info ]: Debugging connection:
+  "database": "global-conflicts-500009",
+  "schema": "raw_conflict_data",
+  "method": "service-account",
+  "dataproc_batch": null
+10:28:17.439906 [debug]: Query executed on node unknown:
+select 1 as id
+10:28:18.445210 [info ]: Finished debugging [  2.33s]
+10:28:18.445499 [error]: [AuthenticationFailed (dbt1011)]: dbt was unable to connect to the specified database.
+The following error was returned:
+
+[BigQuery] googleapi: Error 403: Access Denied: Project global-conflicts-500009: User does not have bigquery.jobs.create permission in project global-conflicts-500009., accessDenied
+
+Check your database credentials and try again. For more information, visit:
+https://docs.getdbt.com/docs/core/connect-data-platform/connection-profiles
+10:28:19.285707 [info ]: 
+==================== Execution Summary =====================
+Finished 'init' with 1 error for target 'dev' [1m 14s]
+==================== 2026-06-20T10:33:17.951105Z | 019ee497-8d7e-7262-a38a-29c42538df3d ====================
+10:33:17.951193 [info ]: Installing dbt project and profile setup
+10:33:17.955636 [info ]: Info Created .vscode/extensions.json with dbt extension recommendation
+10:33:17.955695 [info ]: Success Project created successfully!
+10:33:17.955719 [info ]: Info Project name: jaffle_shop
+10:33:17.955739 [info ]: Info Project directory: jaffle_shop
+10:33:17.955752 [info ]: Info Setting up your profile...
+10:33:17.955827 [info ]: Info Creating new profile...
+10:33:20.624790 [info ]: No dbt_cloud.yml found - proceeding without cloud pre-population
+10:34:15.800479 [info ]: Success Profile written to /Users/mymac/.dbt/profiles.yml
+10:34:15.800661 [info ]: Validating profile inputs, adapters, and connection
+
+10:34:15.800704 [info ]: dbt-fusion 2.0.0-preview.190
+10:34:15.801003 [info ]: Started loading project
+10:34:15.802937 [info ]: Loading ~/.dbt/profiles.yml
+10:34:15.804058 [info ]: Finished loading project [  0.00s]
+10:34:15.804157 [info ]: Started debugging
+10:34:15.804219 [info ]: Debugging profile: dev
+10:34:15.804250 [info ]: Debugging dbt version: 2.0.0-preview.190
+10:34:15.804272 [info ]: Debugging platform: macos aarch64 (unix)
+10:34:15.804304 [info ]: Debugging adapter type: bigquery (remote)
+10:34:15.817590 [info ]: Debugging dependencies:
+  git: OK
+10:34:15.817832 [info ]: Debugging connection:
+  "database": "global-conflicts-500009",
+  "schema": "raw_conflict_data",
+  "method": "service-account",
+  "dataproc_batch": null
+10:34:19.212395 [debug]: Query executed on node unknown:
+select 1 as id
+10:34:19.212671 [info ]: Debugging connection test: OK
+10:34:19.212742 [info ]: Debugged All checks passed!
+10:34:19.212780 [info ]: Finished debugging [  3.41s]
+10:34:19.960477 [info ]: 
+==================== Execution Summary =====================
+Finished 'init' successfully for target 'dev' [1m 2s]
