@@ -47,8 +47,9 @@ SELECT
     
     -- Categorize the risk based on the probability percentage
     CASE 
-        WHEN prob.prob > 0.70 THEN 'High Risk'
-        WHEN prob.prob > 0.30 THEN 'Medium Risk'
+        WHEN prob.prob > 0.97 THEN 'Critical Risk'
+        WHEN prob.prob > 0.95 THEN 'High Risk'
+        WHEN prob.prob > 0.82 THEN 'Medium Risk'
         ELSE 'Low Risk'
     END AS risk_category
 
