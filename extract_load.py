@@ -11,7 +11,7 @@ last_week = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
 print(f"Starting incremental pull for dates: {last_week} to {today}")
 
 # 1. Fetch data from UCDP API
-TOKEN = "e56a0e750566f56a" # public token for UCDP API
+TOKEN = # public token for UCDP API
 headers = {"x-ucdp-access-token": TOKEN}
 url = "https://ucdpapi.pcr.uu.se/api/gedevents/26.1"
 
