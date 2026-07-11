@@ -1377,3 +1377,2336 @@ ORDER BY conflict_probability_percent DESC
 Finished 'run' with 1 warning for target 'dev' [11.4s]
 Processed: 1 model
 Summary: 1 total | 1 success
+==================== 2026-07-11T16:01:31.182732Z | 019f51e9-9822-79f0-b7c7-ce0fc4c031c3 ====================
+16:01:31.185092 [info ]: dbt-fusion 2.0.0-preview.193
+16:01:31.187507 [info ]: Started loading project
+16:01:31.203359 [info ]: Loading profiles.yml
+16:01:31.390843 [info ]: Loading packages.yml
+16:01:31.392723 [debug]:    Started loading packages
+16:01:31.405137 [debug]:     Loaded [  0.01s] packages
+16:01:31.409685 [info ]: Finished loading project [  0.22s]
+16:01:31.412765 [info ]: Started parsing
+16:01:31.470560 [debug]: Finished parsing models/schema.yml [  0.00s]
+16:01:31.471174 [debug]: Finished parsing models/sources.yml [  0.00s]
+16:01:31.488259 [debug]: Finished parsing models/dim_actors.sql [  0.01s]
+16:01:31.488895 [debug]: Finished parsing models/dim_country.sql [  0.00s]
+16:01:31.489288 [debug]: Finished parsing models/dim_dates.sql [  0.00s]
+16:01:31.489818 [debug]: Finished parsing models/dim_violence_type.sql [  0.00s]
+16:01:31.490309 [debug]: Finished parsing models/mart_conflict_fatalities_by_country.sql [  0.00s]
+16:01:31.490791 [debug]: Finished parsing models/mart_conflict_risk_predictions.sql [  0.00s]
+16:01:31.491291 [debug]: Finished parsing models/mart_country_conflict_features.sql [  0.00s]
+16:01:31.491623 [debug]: Finished parsing models/mart_global_trends_by_year.sql [  0.00s]
+16:01:31.491948 [debug]: Finished parsing models/mart_violence_types_overview.sql [  0.00s]
+16:01:31.492539 [debug]: Finished parsing models/stg_ucdp_conflicts.sql [  0.00s]
+16:01:31.503572 [debug]: Finished parsing target/generic_tests/not_null_mart_conflict_fatalities_by_country_country.sql [  0.00s]
+16:01:31.503875 [debug]: Finished parsing target/generic_tests/unique_mart_global_trends_by_year_conflict_year.sql [  0.00s]
+16:01:31.504153 [debug]: Finished parsing target/generic_tests/not_null_mart_global_trends_by_year_conflict_year.sql [  0.00s]
+16:01:31.504400 [debug]: Finished parsing target/generic_tests/not_null_stg_ucdp_conflicts_country.sql [  0.00s]
+16:01:31.504630 [debug]: Finished parsing target/generic_tests/unique_stg_ucdp_conflicts_event_id.sql [  0.00s]
+16:01:31.504866 [debug]: Finished parsing target/generic_tests/not_null_stg_ucdp_conflicts_event_id.sql [  0.00s]
+16:01:31.510105 [info ]: Finished parsing [  0.10s]
+16:01:31.513400 [info ]: Started scheduling
+16:01:31.515147 [info ]: Finished scheduling [  0.00s]
+16:01:31.521499 [debug]: Initializing schema store with entry: Frontier(CanonicalFqn { catalog: "global-conflicts-500009", schema: "raw_conflict_data", table: "raw_data" }) and interval: None
+16:01:31.676263 [debug]: No platform credentials found, skipping remote license
+16:01:31.677352 [debug]: License check failed: Feature not licensed: 'lineage'
+16:01:31.679524 [debug]:    Started downloading relations (1 items)
+16:01:35.735541 [debug]: Query executed on node unknown:
+SELECT
+    table_catalog,
+    table_schema,
+    table_name,
+    table_type
+FROM 
+    `global-conflicts-500009`.`raw_conflict_data`.INFORMATION_SCHEMA.TABLES
+16:01:35.737970 [debug]:   Finished [  4.06s] downloading relations (1 items)
+16:01:35.763003 [info ]: Started building task graph
+16:01:35.766655 [info ]: Finished building task graph [  0.00s]
+16:01:39.247736 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+    select distinct schema_name from `global-conflicts-500009`.INFORMATION_SCHEMA.SCHEMATA;
+  
+16:01:39.252944 [info ]: Started rendering (10 nodes)
+16:01:39.253579 [info ]: Started model raw_conflict_data.stg_ucdp_conflicts
+16:01:39.253973 [debug]: Started rendering model raw_conflict_data.stg_ucdp_conflicts
+16:01:39.266163 [debug]: Compiled SQL for node model.global_conflicts.stg_ucdp_conflicts at target/compiled/global_conflicts/models/stg_ucdp_conflicts.sql
+16:01:39.266731 [debug]: Finished rendering [  0.01s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:01:39.267695 [info ]: Started analyzing (10 nodes)
+16:01:39.267741 [debug]: Started analyzing model raw_conflict_data.stg_ucdp_conflicts
+16:01:39.287920 [debug]: Finished analyzing [  0.02s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:01:39.288002 [info ]: Started running (10 nodes)
+16:01:39.288051 [info ]: Started running model raw_conflict_data.stg_ucdp_conflicts
+16:01:39.290841 [debug]: Invalid value for on_schema_change (None) specified. Setting default value of ignore.
+16:01:39.640524 [debug]: Writing runtime sql for node "model.global_conflicts.stg_ucdp_conflicts"
+16:01:55.681475 [debug]: Query executed on node model.global_conflicts.stg_ucdp_conflicts:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.stg_ucdp_conflicts", "profile_name": "global_conflicts", "target_name": "dev"} */
+-- back compat for old kwarg name
+  
+  
+        
+            
+            
+            
+            
+        
+    
+
+    
+
+    merge into `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` as DBT_INTERNAL_DEST
+        using (
+
+WITH raw_conflicts AS (
+    SELECT *,
+    -- This stamps the data for our final records so we know when dbt ran
+    CURRENT_TIMESTAMP() as loaded_at_timestamp
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`raw_data`
+    
+    
+    -- We CANNOT filter by the timestamp because we are generating it live.
+    -- We MUST use the unique 'id' to detect genuinely new rows from the API.
+    WHERE id > (SELECT MAX(event_id) FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`)
+    
+),
+
+renamed_and_cleaned AS (
+    SELECT 
+        id AS event_id,
+        year AS conflict_year,
+        type_of_violence,
+        side_a,
+        side_b,
+        country,
+        region,
+        latitude,
+        longitude,
+        best AS estimated_fatalities,
+        date_start,
+        date_end,
+        loaded_at_timestamp
+    FROM raw_conflicts
+    WHERE country IS NOT NULL
+)
+
+SELECT * FROM renamed_and_cleaned
+        ) as DBT_INTERNAL_SOURCE
+        on ((DBT_INTERNAL_SOURCE.event_id = DBT_INTERNAL_DEST.event_id))
+
+    
+    when matched then update set
+        `event_id` = DBT_INTERNAL_SOURCE.`event_id`,`conflict_year` = DBT_INTERNAL_SOURCE.`conflict_year`,`type_of_violence` = DBT_INTERNAL_SOURCE.`type_of_violence`,`side_a` = DBT_INTERNAL_SOURCE.`side_a`,`side_b` = DBT_INTERNAL_SOURCE.`side_b`,`country` = DBT_INTERNAL_SOURCE.`country`,`region` = DBT_INTERNAL_SOURCE.`region`,`latitude` = DBT_INTERNAL_SOURCE.`latitude`,`longitude` = DBT_INTERNAL_SOURCE.`longitude`,`estimated_fatalities` = DBT_INTERNAL_SOURCE.`estimated_fatalities`,`date_start` = DBT_INTERNAL_SOURCE.`date_start`,`date_end` = DBT_INTERNAL_SOURCE.`date_end`,`loaded_at_timestamp` = DBT_INTERNAL_SOURCE.`loaded_at_timestamp`
+    
+
+    when not matched then insert
+        (`event_id`, `conflict_year`, `type_of_violence`, `side_a`, `side_b`, `country`, `region`, `latitude`, `longitude`, `estimated_fatalities`, `date_start`, `date_end`, `loaded_at_timestamp`)
+    values
+        (`event_id`, `conflict_year`, `type_of_violence`, `side_a`, `side_b`, `country`, `region`, `latitude`, `longitude`, `estimated_fatalities`, `date_start`, `date_end`, `loaded_at_timestamp`)
+
+
+    
+16:01:55.683926 [info ]: Finished running [ 16.40s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:01:55.683958 [info ]:  Succeeded [ 16.43s] model raw_conflict_data.stg_ucdp_conflicts (incremental)
+16:01:55.684278 [info ]: Started model raw_conflict_data.dim_violence_type
+16:01:55.684291 [debug]: Started rendering model raw_conflict_data.dim_violence_type
+16:01:55.684306 [info ]: Started model raw_conflict_data.dim_country
+16:01:55.684312 [debug]: Started rendering model raw_conflict_data.dim_country
+16:01:55.684322 [info ]: Started model raw_conflict_data.mart_country_conflict_features
+16:01:55.684327 [debug]: Started rendering model raw_conflict_data.mart_country_conflict_features
+16:01:55.684338 [info ]: Started model raw_conflict_data.dim_actors
+16:01:55.684347 [debug]: Started rendering model raw_conflict_data.dim_actors
+16:01:55.684367 [info ]: Started model raw_conflict_data.dim_dates
+16:01:55.684375 [debug]: Started rendering model raw_conflict_data.dim_dates
+16:01:55.685755 [debug]: Compiled SQL for node model.global_conflicts.mart_country_conflict_features at target/compiled/global_conflicts/models/mart_country_conflict_features.sql
+16:01:55.685882 [debug]: Compiled SQL for node model.global_conflicts.dim_dates at target/compiled/global_conflicts/models/dim_dates.sql
+16:01:55.685959 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_country_conflict_features [success]
+16:01:55.685995 [debug]: Started analyzing model raw_conflict_data.mart_country_conflict_features
+16:01:55.686059 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_dates [success]
+16:01:55.686112 [debug]: Started analyzing model raw_conflict_data.dim_dates
+16:01:55.686345 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.dim_dates [success]
+16:01:55.686366 [info ]: Started running model raw_conflict_data.dim_dates
+16:01:55.686555 [debug]: Compiled SQL for node model.global_conflicts.dim_violence_type at target/compiled/global_conflicts/models/dim_violence_type.sql
+16:01:55.686557 [debug]: Compiled SQL for node model.global_conflicts.dim_country at target/compiled/global_conflicts/models/dim_country.sql
+16:01:55.686566 [debug]: Compiled SQL for node model.global_conflicts.dim_actors at target/compiled/global_conflicts/models/dim_actors.sql
+16:01:55.686615 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_violence_type [success]
+16:01:55.686639 [debug]: Started analyzing model raw_conflict_data.dim_violence_type
+16:01:55.686651 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_actors [success]
+16:01:55.686668 [debug]: Started analyzing model raw_conflict_data.dim_actors
+16:01:55.686759 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_country [success]
+16:01:55.686784 [debug]: Started analyzing model raw_conflict_data.dim_country
+16:01:55.689435 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.mart_country_conflict_features [success]
+16:01:55.689468 [info ]: Started running model raw_conflict_data.mart_country_conflict_features
+16:01:55.689937 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.dim_country [success]
+16:01:55.689957 [info ]: Started running model raw_conflict_data.dim_country
+16:01:55.690344 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.dim_actors [success]
+16:01:55.690366 [info ]: Started running model raw_conflict_data.dim_actors
+16:01:55.690677 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.dim_violence_type [success]
+16:01:55.690719 [info ]: Started running model raw_conflict_data.dim_violence_type
+16:01:55.697424 [debug]: Writing runtime sql for node "model.global_conflicts.dim_country"
+16:01:55.997502 [debug]: Writing runtime sql for node "model.global_conflicts.dim_dates"
+16:01:56.365463 [debug]: Writing runtime sql for node "model.global_conflicts.mart_country_conflict_features"
+16:01:56.366176 [debug]: Writing runtime sql for node "model.global_conflicts.dim_violence_type"
+16:01:56.420006 [debug]: Writing runtime sql for node "model.global_conflicts.dim_actors"
+16:01:58.132455 [debug]: Query executed on node model.global_conflicts.dim_country:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_country", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+
+  create or replace view `global-conflicts-500009`.`raw_conflict_data`.`dim_country`
+  OPTIONS()
+  as WITH source_data AS (
+    SELECT DISTINCT country, region 
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+)
+
+SELECT 
+    to_hex(md5(cast(coalesce(cast(country as string), '_dbt_utils_surrogate_key_null_') as string))) AS country_id,
+    country,
+    region
+FROM source_data;
+
+
+16:01:58.133344 [info ]: Finished running [  2.44s] model raw_conflict_data.dim_country [success]
+16:01:58.133412 [info ]:  Succeeded [  2.45s] model raw_conflict_data.dim_country (view)
+16:01:59.575991 [debug]: Query executed on node model.global_conflicts.dim_dates:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_dates", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`dim_dates`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT DISTINCT
+    conflict_year AS date_key,
+    conflict_year AS year,
+    -- Add more calendar logic here as needed!
+    '2026' AS fiscal_year
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    );
+  
+16:01:59.578137 [info ]: Finished running [  3.89s] model raw_conflict_data.dim_dates [success]
+16:01:59.578320 [info ]:  Succeeded [  3.89s] model raw_conflict_data.dim_dates (table)
+16:01:59.578477 [info ]: Started model raw_conflict_data.mart_conflict_fatalities_by_country
+16:01:59.578516 [debug]: Started rendering model raw_conflict_data.mart_conflict_fatalities_by_country
+16:01:59.578560 [info ]: Started model raw_conflict_data.mart_global_trends_by_year
+16:01:59.578576 [debug]: Started rendering model raw_conflict_data.mart_global_trends_by_year
+16:01:59.578602 [info ]: Started model raw_conflict_data.mart_violence_types_overview
+16:01:59.578620 [debug]: Started rendering model raw_conflict_data.mart_violence_types_overview
+16:01:59.581635 [debug]: Compiled SQL for node model.global_conflicts.mart_global_trends_by_year at target/compiled/global_conflicts/models/mart_global_trends_by_year.sql
+16:01:59.581635 [debug]: Compiled SQL for node model.global_conflicts.mart_conflict_fatalities_by_country at target/compiled/global_conflicts/models/mart_conflict_fatalities_by_country.sql
+16:01:59.581663 [debug]: Compiled SQL for node model.global_conflicts.mart_violence_types_overview at target/compiled/global_conflicts/models/mart_violence_types_overview.sql
+16:01:59.581786 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_violence_types_overview [success]
+16:01:59.581888 [debug]: Started analyzing model raw_conflict_data.mart_violence_types_overview
+16:01:59.581914 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+16:01:59.581954 [debug]: Started analyzing model raw_conflict_data.mart_conflict_fatalities_by_country
+16:01:59.581977 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_global_trends_by_year [success]
+16:01:59.582010 [debug]: Started analyzing model raw_conflict_data.mart_global_trends_by_year
+16:01:59.587297 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+16:01:59.587353 [info ]: Started running model raw_conflict_data.mart_conflict_fatalities_by_country
+16:01:59.587863 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.mart_global_trends_by_year [success]
+16:01:59.587934 [info ]: Started running model raw_conflict_data.mart_global_trends_by_year
+16:01:59.588834 [warn ]: [SyntaxInvalid (dbt0101)]: no viable alternative at input 'case when f.type_of_violence is 1'
+  --> models/mart_violence_types_overview.sql:12:37 (target/compiled/global_conflicts/models/mart_violence_types_overview.sql:12:37)
+16:01:59.589445 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.mart_violence_types_overview [success]
+16:01:59.589477 [info ]: Started running model raw_conflict_data.mart_violence_types_overview
+16:01:59.590652 [debug]: Writing runtime sql for node "model.global_conflicts.mart_conflict_fatalities_by_country"
+16:01:59.774313 [debug]: Query executed on node model.global_conflicts.dim_violence_type:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_violence_type", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`dim_violence_type`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT DISTINCT
+    to_hex(md5(cast(coalesce(cast(type_of_violence as string), '_dbt_utils_surrogate_key_null_') as string))) AS violence_type_id,
+    type_of_violence,
+    CASE 
+        WHEN type_of_violence = 1 THEN 'State-based'
+        WHEN type_of_violence = 2 THEN 'Non-state'
+        WHEN type_of_violence = 3 THEN 'One-sided'
+        ELSE 'Other'
+    END AS description
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    );
+  
+16:01:59.775796 [info ]: Finished running [  4.09s] model raw_conflict_data.dim_violence_type [success]
+16:01:59.775893 [info ]:  Succeeded [  4.09s] model raw_conflict_data.dim_violence_type (table)
+16:01:59.886016 [debug]: Writing runtime sql for node "model.global_conflicts.mart_global_trends_by_year"
+16:01:59.903347 [debug]: Writing runtime sql for node "model.global_conflicts.mart_violence_types_overview"
+16:02:00.114566 [debug]: Query executed on node model.global_conflicts.dim_actors:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_actors", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`dim_actors`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+WITH all_actors AS (
+    SELECT side_a AS actor_name FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    UNION DISTINCT
+    SELECT side_b AS actor_name FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+)
+
+SELECT 
+    to_hex(md5(cast(coalesce(cast(actor_name as string), '_dbt_utils_surrogate_key_null_') as string))) AS actor_id,
+    actor_name
+FROM all_actors
+WHERE actor_name IS NOT NULL
+    );
+  
+16:02:00.116429 [info ]: Finished running [  4.43s] model raw_conflict_data.dim_actors [success]
+16:02:00.116496 [info ]:  Succeeded [  4.43s] model raw_conflict_data.dim_actors (table)
+16:02:00.477059 [debug]: Query executed on node model.global_conflicts.mart_violence_types_overview:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_violence_types_overview", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_violence_types_overview`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT 
+    c.country,
+    c.region,
+    f.side_a,
+    f.side_b,
+    d.year AS date_year,
+    f.type_of_violence,
+    SUM(f.estimated_fatalities) AS total_fatalities,
+    COUNT(f.event_id) AS total_conflict_events,
+    case when f.type_of_violence is 1 then 'State-based'
+         when f.type_of_violence is 2 then 'Non-state-based'
+         when f.type_of_violence is 3 then 'One-sided-violence'
+         else f.type_of_violence end as violence_type
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` f
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_country` c ON f.country = c.country
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_dates` d ON f.conflict_year = d.year
+GROUP BY c.country, c.region, d.year, f.type_of_violence, f.side_a, f.side_b, violence_type
+ORDER BY total_fatalities DESC
+    );
+  
+16:02:00.556527 [debug]: Query executed on node model.global_conflicts.mart_country_conflict_features:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_country_conflict_features", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_country_conflict_features`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+WITH yearly_country_stats AS (
+    -- Step 1: Aggregate the data by Country and Year
+    SELECT 
+        country,
+        conflict_year,
+        SUM(estimated_fatalities) AS total_fatalities,
+        COUNT(event_id) AS total_events,
+        COUNT(DISTINCT type_of_violence) AS violence_types_present
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    GROUP BY country, conflict_year
+),
+
+rolling_features AS (
+    -- Step 2: Use Window Functions to "look ahead" 5 years
+    SELECT
+        country,
+        conflict_year,
+        total_fatalities,
+        total_events,
+        violence_types_present,
+        
+        -- This looks at the next 5 years for the same country and sums the events
+        SUM(total_events) OVER (
+            PARTITION BY country 
+            ORDER BY conflict_year 
+            RANGE BETWEEN 1 FOLLOWING AND 5 FOLLOWING
+        ) AS future_events_5yr
+    FROM yearly_country_stats
+)
+
+-- Step 3: Create the final binary label for the ML Model (1 = Yes, 0 = No)
+SELECT
+    country,
+    conflict_year,
+    total_fatalities,
+    total_events,
+    violence_types_present,
+    IF(IFNULL(future_events_5yr, 0) > 0, 1, 0) AS target_conflict_next_5_years
+FROM rolling_features
+    );
+  
+16:02:00.557559 [info ]: Finished running [  4.87s] model raw_conflict_data.mart_country_conflict_features [success]
+16:02:00.557626 [info ]:  Succeeded [  4.87s] model raw_conflict_data.mart_country_conflict_features (table)
+16:02:00.557730 [info ]: Started model raw_conflict_data.mart_conflict_risk_predictions
+16:02:00.557756 [debug]: Started rendering model raw_conflict_data.mart_conflict_risk_predictions
+16:02:00.559115 [debug]: Compiled SQL for node model.global_conflicts.mart_conflict_risk_predictions at target/compiled/global_conflicts/models/mart_conflict_risk_predictions.sql
+16:02:00.559185 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+16:02:00.559208 [info ]: Finished rendering [ 21.31s] (10 nodes, 0 skipped, 0 errors)
+16:02:00.559262 [debug]: Started analyzing model raw_conflict_data.mart_conflict_risk_predictions
+16:02:00.561565 [warn ]: [SyntaxInvalid (dbt0101)]: extraneous input '`global-conflicts-500009.raw_conflict_data.predict_conflict_risk`' expecting one of ',', 'COPARTITION', ')'
+  --> models/mart_conflict_risk_predictions.sql:26:15 (target/compiled/global_conflicts/models/mart_conflict_risk_predictions.sql:26:15)
+16:02:00.561605 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+16:02:00.561625 [info ]: Finished analyzing [ 21.29s] (10 nodes, 0 skipped, 0 errors)
+16:02:00.561667 [info ]: Started running model raw_conflict_data.mart_conflict_risk_predictions
+16:02:00.860977 [debug]: Writing runtime sql for node "model.global_conflicts.mart_conflict_risk_predictions"
+16:02:01.484534 [error]: [DbDriverFailed (dbt1308)]: Database Error in model mart_violence_types_overview (target/run/global_conflicts/models/mart_violence_types_overview.sql)
+  [BigQuery] googleapi: Error 400: Syntax error: Expected keyword FALSE or keyword NULL or keyword TRUE or keyword UNKNOWN but got integer literal "1" at [25:37], invalidQuery (Query: https://console.cloud.google.com/bigquery?project=global-conflicts-500009&j=bq:US:S1I9cHSJ1m7sKBns1fnD5YxKz2V&page=queryresults)
+  (in run/global_conflicts/models/mart_violence_types_overview.sql:1:13)
+16:02:01.484904 [info ]: Finished running [  1.90s] model raw_conflict_data.mart_violence_types_overview [error]
+16:02:01.485121 [info ]:     Failed [  1.91s] model raw_conflict_data.mart_violence_types_overview (table)
+16:02:02.458324 [debug]: Query executed on node model.global_conflicts.mart_conflict_fatalities_by_country:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_conflict_fatalities_by_country", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+
+  create or replace view `global-conflicts-500009`.`raw_conflict_data`.`mart_conflict_fatalities_by_country`
+  OPTIONS()
+  as SELECT 
+    c.country,
+    c.region,
+    d.year AS conflict_year,
+    SUM(f.estimated_fatalities) AS total_fatalities,
+    COUNT(f.event_id) AS total_conflict_events
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` f
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_country` c ON f.country = c.country
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_dates` d ON f.conflict_year = d.year
+GROUP BY c.country, c.region, d.year
+ORDER BY total_fatalities DESC;
+
+
+16:02:02.459203 [info ]: Finished running [  2.87s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+16:02:02.459248 [info ]:  Succeeded [  2.88s] model raw_conflict_data.mart_conflict_fatalities_by_country (view)
+16:02:03.704233 [debug]: Query executed on node model.global_conflicts.mart_global_trends_by_year:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_global_trends_by_year", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_global_trends_by_year`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT 
+    d.year AS conflict_year,
+    COUNT(f.event_id) AS total_conflict_events,
+    SUM(f.estimated_fatalities) AS total_fatalities,
+    ROUND(SUM(f.estimated_fatalities) / COUNT(f.event_id), 2) AS average_fatalities_per_event
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` f
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_dates` d ON f.conflict_year = d.year
+GROUP BY d.year
+ORDER BY d.year DESC    
+    );
+  
+16:02:03.705868 [info ]: Finished running [  4.12s] model raw_conflict_data.mart_global_trends_by_year [success]
+16:02:03.705952 [info ]:  Succeeded [  4.12s] model raw_conflict_data.mart_global_trends_by_year (table)
+16:02:04.744008 [debug]: Query executed on node model.global_conflicts.mart_conflict_risk_predictions:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_conflict_risk_predictions", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_conflict_risk_predictions`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+WITH latest_country_data AS (
+    -- Step 1: Grab only the most recent year of data for each country
+    -- We explicitly list only the features the ML model expects, plus the ones we want in the final output.
+    SELECT 
+        country,
+        conflict_year,
+        total_fatalities,
+        total_events,
+        violence_types_present
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`mart_country_conflict_features`
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY country ORDER BY conflict_year DESC) = 1
+),
+
+predictions AS (
+    -- Step 2: Feed that recent data into your BigQuery ML model
+    -- We explicitly select the original columns we need for the dashboard, 
+    -- PLUS the specific probability array column that ML.PREDICT generates.
+    SELECT 
+        country,
+        conflict_year,
+        total_events,
+        predicted_target_conflict_next_5_years_probs
+    FROM ML.PREDICT(
+        MODEL `global-conflicts-500009.raw_conflict_data.predict_conflict_risk`, 
+        (
+            SELECT 
+                country,
+                conflict_year,
+                total_fatalities,
+                total_events,
+                violence_types_present
+            FROM latest_country_data
+        )
+    )
+)
+
+-- Step 3: Clean up the output for your final dashboard
+SELECT 
+    country,
+    conflict_year AS last_data_year,
+    total_events AS recent_conflict_events,
+    
+    -- BQML outputs an array of probabilities. We extract the probability of '1' (Conflict)
+    ROUND(prob.prob * 100, 2) AS conflict_probability_percent,
+    
+    -- Categorize the risk based on the probability percentage
+    CASE 
+        WHEN prob.prob > 0.97 THEN 'Critical Risk'
+        WHEN prob.prob > 0.95 THEN 'High Risk'
+        WHEN prob.prob > 0.82 THEN 'Medium Risk'
+        ELSE 'Low Risk'
+    END AS risk_category
+
+FROM predictions, UNNEST(predicted_target_conflict_next_5_years_probs) AS prob
+WHERE prob.label = 1 
+ORDER BY conflict_probability_percent DESC
+    );
+  
+16:02:04.745465 [info ]: Finished running [  4.18s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+16:02:04.745548 [info ]: Finished running [ 25.46s] (10 nodes, 0 skipped, 1 errors)
+16:02:04.745571 [info ]:  Succeeded [  4.19s] model raw_conflict_data.mart_conflict_risk_predictions (table)
+16:02:04.782917 [info ]: New version available 2.0.0-preview.196 (run `dbt system update`)
+16:02:04.850345 [info ]: 
+==================== Execution Summary =====================
+Finished 'run' with 2 warnings and 1 error for target 'dev' [33.7s]
+Processed: 10 models
+Summary: 10 total | 9 success | 1 error
+==================== 2026-07-11T16:03:50.666432Z | 019f51eb-b8fc-78f0-81e3-dc07964d4023 ====================
+16:03:50.668961 [info ]: dbt-fusion 2.0.0-preview.193
+16:03:50.672165 [info ]: Started loading project
+16:03:50.687509 [info ]: Loading profiles.yml
+16:03:50.874630 [info ]: Loading packages.yml
+16:03:50.876552 [debug]:    Started loading packages
+16:03:50.888154 [debug]:     Loaded [  0.01s] packages
+16:03:50.893026 [info ]: Finished loading project [  0.22s]
+16:03:50.896190 [info ]: Started parsing
+16:03:50.954683 [debug]: Finished parsing models/schema.yml [  0.00s]
+16:03:50.955403 [debug]: Finished parsing models/sources.yml [  0.00s]
+16:03:50.971769 [debug]: Finished parsing models/dim_actors.sql [  0.01s]
+16:03:50.972372 [debug]: Finished parsing models/dim_country.sql [  0.00s]
+16:03:50.972808 [debug]: Finished parsing models/dim_dates.sql [  0.00s]
+16:03:50.973430 [debug]: Finished parsing models/dim_violence_type.sql [  0.00s]
+16:03:50.973934 [debug]: Finished parsing models/mart_conflict_fatalities_by_country.sql [  0.00s]
+16:03:50.974415 [debug]: Finished parsing models/mart_conflict_risk_predictions.sql [  0.00s]
+16:03:50.974944 [debug]: Finished parsing models/mart_country_conflict_features.sql [  0.00s]
+16:03:50.975453 [debug]: Finished parsing models/mart_global_trends_by_year.sql [  0.00s]
+16:03:50.975781 [debug]: Finished parsing models/mart_violence_types_overview.sql [  0.00s]
+16:03:50.976474 [debug]: Finished parsing models/stg_ucdp_conflicts.sql [  0.00s]
+16:03:50.988334 [debug]: Finished parsing target/generic_tests/not_null_mart_conflict_fatalities_by_country_country.sql [  0.00s]
+16:03:50.988667 [debug]: Finished parsing target/generic_tests/unique_mart_global_trends_by_year_conflict_year.sql [  0.00s]
+16:03:50.989083 [debug]: Finished parsing target/generic_tests/not_null_mart_global_trends_by_year_conflict_year.sql [  0.00s]
+16:03:50.989422 [debug]: Finished parsing target/generic_tests/not_null_stg_ucdp_conflicts_country.sql [  0.00s]
+16:03:50.989683 [debug]: Finished parsing target/generic_tests/unique_stg_ucdp_conflicts_event_id.sql [  0.00s]
+16:03:50.989970 [debug]: Finished parsing target/generic_tests/not_null_stg_ucdp_conflicts_event_id.sql [  0.00s]
+16:03:50.995492 [info ]: Finished parsing [  0.10s]
+16:03:50.998613 [info ]: Started scheduling
+16:03:51.000425 [info ]: Finished scheduling [  0.00s]
+16:03:51.005533 [debug]: Initializing schema store with entry: Frontier(CanonicalFqn { catalog: "global-conflicts-500009", schema: "raw_conflict_data", table: "raw_data" }) and interval: None
+16:03:51.162318 [debug]: No platform credentials found, skipping remote license
+16:03:51.163287 [debug]: License check failed: Feature not licensed: 'lineage'
+16:03:51.165275 [debug]:    Started downloading relations (1 items)
+16:03:55.334845 [debug]: Query executed on node unknown:
+SELECT
+    table_catalog,
+    table_schema,
+    table_name,
+    table_type
+FROM 
+    `global-conflicts-500009`.`raw_conflict_data`.INFORMATION_SCHEMA.TABLES
+16:03:55.336398 [debug]:   Finished [  4.17s] downloading relations (1 items)
+16:03:55.361513 [info ]: Started building task graph
+16:03:55.364506 [info ]: Finished building task graph [  0.00s]
+16:03:58.430640 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+    select distinct schema_name from `global-conflicts-500009`.INFORMATION_SCHEMA.SCHEMATA;
+  
+16:03:58.436644 [info ]: Started rendering (10 nodes)
+16:03:58.437466 [info ]: Started model raw_conflict_data.stg_ucdp_conflicts
+16:03:58.437956 [debug]: Started rendering model raw_conflict_data.stg_ucdp_conflicts
+16:03:58.453125 [debug]: Compiled SQL for node model.global_conflicts.stg_ucdp_conflicts at target/compiled/global_conflicts/models/stg_ucdp_conflicts.sql
+16:03:58.453805 [debug]: Finished rendering [  0.02s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:03:58.454854 [info ]: Started analyzing (10 nodes)
+16:03:58.454915 [debug]: Started analyzing model raw_conflict_data.stg_ucdp_conflicts
+16:03:58.474228 [debug]: Finished analyzing [  0.02s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:03:58.474286 [info ]: Started running (10 nodes)
+16:03:58.474321 [info ]: Started running model raw_conflict_data.stg_ucdp_conflicts
+16:03:58.477173 [debug]: Invalid value for on_schema_change (None) specified. Setting default value of ignore.
+16:03:58.921965 [debug]: Writing runtime sql for node "model.global_conflicts.stg_ucdp_conflicts"
+16:03:58.925714 [debug]: Query executed on node model.global_conflicts.stg_ucdp_conflicts:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.stg_ucdp_conflicts", "profile_name": "global_conflicts", "target_name": "dev"} */
+-- back compat for old kwarg name
+  
+  
+        
+            
+            
+            
+            
+        
+    
+
+    
+
+    merge into `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` as DBT_INTERNAL_DEST
+        using (
+
+WITH raw_conflicts AS (
+    SELECT *,
+    -- This stamps the data for our final records so we know when dbt ran
+    CURRENT_TIMESTAMP() as loaded_at_timestamp
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`raw_data`
+    
+    
+    -- We CANNOT filter by the timestamp because we are generating it live.
+    -- We MUST use the unique 'id' to detect genuinely new rows from the API.
+    WHERE id > (SELECT MAX(event_id) FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`)
+    
+),
+
+renamed_and_cleaned AS (
+    SELECT 
+        id AS event_id,
+        year AS conflict_year,
+        type_of_violence,
+        side_a,
+        side_b,
+        country,
+        region,
+        latitude,
+        longitude,
+        best AS estimated_fatalities,
+        date_start,
+        date_end,
+        loaded_at_timestamp
+    FROM raw_conflicts
+    WHERE country IS NOT NULL
+)
+
+SELECT * FROM renamed_and_cleaned
+        ) as DBT_INTERNAL_SOURCE
+        on ((DBT_INTERNAL_SOURCE.event_id = DBT_INTERNAL_DEST.event_id))
+
+    
+    when matched then update set
+        `event_id` = DBT_INTERNAL_SOURCE.`event_id`,`conflict_year` = DBT_INTERNAL_SOURCE.`conflict_year`,`type_of_violence` = DBT_INTERNAL_SOURCE.`type_of_violence`,`side_a` = DBT_INTERNAL_SOURCE.`side_a`,`side_b` = DBT_INTERNAL_SOURCE.`side_b`,`country` = DBT_INTERNAL_SOURCE.`country`,`region` = DBT_INTERNAL_SOURCE.`region`,`latitude` = DBT_INTERNAL_SOURCE.`latitude`,`longitude` = DBT_INTERNAL_SOURCE.`longitude`,`estimated_fatalities` = DBT_INTERNAL_SOURCE.`estimated_fatalities`,`date_start` = DBT_INTERNAL_SOURCE.`date_start`,`date_end` = DBT_INTERNAL_SOURCE.`date_end`,`loaded_at_timestamp` = DBT_INTERNAL_SOURCE.`loaded_at_timestamp`
+    
+
+    when not matched then insert
+        (`event_id`, `conflict_year`, `type_of_violence`, `side_a`, `side_b`, `country`, `region`, `latitude`, `longitude`, `estimated_fatalities`, `date_start`, `date_end`, `loaded_at_timestamp`)
+    values
+        (`event_id`, `conflict_year`, `type_of_violence`, `side_a`, `side_b`, `country`, `region`, `latitude`, `longitude`, `estimated_fatalities`, `date_start`, `date_end`, `loaded_at_timestamp`)
+
+
+    
+16:03:59.928645 [error]: [TaskCancelled (dbt1404)]: Error executing materialization macro 'dbt_bigquery.materialization_incremental_bigquery' for model model.global_conflicts.stg_ucdp_conflicts: Cancelled: SQL statement execution was cancelled
+(in run/global_conflicts/models/stg_ucdp_conflicts.sql:1:13)
+  --> run/global_conflicts/models/stg_ucdp_conflicts.sql:1:13
+16:03:59.929307 [info ]: Finished running [  1.45s] model raw_conflict_data.stg_ucdp_conflicts [error]
+16:03:59.929412 [info ]:     Failed [  1.49s] model raw_conflict_data.stg_ucdp_conflicts (incremental)
+16:03:59.933967 [info ]: Finished rendering [  1.50s] (10 nodes, 0 skipped, 0 errors)
+16:03:59.934017 [info ]: Finished analyzing [  1.48s] (10 nodes, 0 skipped, 0 errors)
+16:03:59.934036 [info ]: Finished running [  1.46s] (10 nodes, 0 skipped, 1 errors)
+16:03:59.951348 [error]: [OperationCanceled (dbt8995)]: Operation cancelled
+16:03:59.951439 [info ]: New version available 2.0.0-preview.196 (run `dbt system update`)
+16:04:00.039400 [info ]: 
+==================== Execution Summary =====================
+Finished 'run' with 2 errors for target 'dev' [9.4s]
+Processed: 10 models
+Summary: 1 total | 1 error
+==================== 2026-07-11T16:04:04.137287Z | 019f51eb-eda8-7a20-9f3e-4e23607f3c1b ====================
+16:04:04.137344 [info ]: dbt-fusion 2.0.0-preview.193
+16:04:04.137437 [info ]: Started loading project
+16:04:04.137911 [info ]: Loading profiles.yml
+16:04:04.309351 [info ]: Loading packages.yml
+16:04:04.309499 [debug]:    Started loading packages
+16:04:04.311665 [debug]:     Loaded [  0.00s] packages
+16:04:04.312343 [info ]: Finished loading project [  0.17s]
+16:04:04.313149 [info ]: Started parsing
+16:04:04.341250 [debug]: Finished parsing models/schema.yml [  0.00s]
+16:04:04.341605 [debug]: Finished parsing models/sources.yml [  0.00s]
+16:04:04.343218 [debug]: Finished parsing models/dim_actors.sql [  0.00s]
+16:04:04.343936 [debug]: Finished parsing models/dim_country.sql [  0.00s]
+16:04:04.344430 [debug]: Finished parsing models/dim_dates.sql [  0.00s]
+16:04:04.345109 [debug]: Finished parsing models/dim_violence_type.sql [  0.00s]
+16:04:04.345540 [debug]: Finished parsing models/mart_conflict_fatalities_by_country.sql [  0.00s]
+16:04:04.345942 [debug]: Finished parsing models/mart_conflict_risk_predictions.sql [  0.00s]
+16:04:04.346445 [debug]: Finished parsing models/mart_country_conflict_features.sql [  0.00s]
+16:04:04.347061 [debug]: Finished parsing models/mart_global_trends_by_year.sql [  0.00s]
+16:04:04.347455 [debug]: Finished parsing models/mart_violence_types_overview.sql [  0.00s]
+16:04:04.347857 [debug]: Finished parsing models/stg_ucdp_conflicts.sql [  0.00s]
+16:04:04.353864 [debug]: Finished parsing target/generic_tests/not_null_mart_conflict_fatalities_by_country_country.sql [  0.00s]
+16:04:04.354142 [debug]: Finished parsing target/generic_tests/unique_mart_global_trends_by_year_conflict_year.sql [  0.00s]
+16:04:04.354399 [debug]: Finished parsing target/generic_tests/not_null_mart_global_trends_by_year_conflict_year.sql [  0.00s]
+16:04:04.354640 [debug]: Finished parsing target/generic_tests/not_null_stg_ucdp_conflicts_country.sql [  0.00s]
+16:04:04.354858 [debug]: Finished parsing target/generic_tests/unique_stg_ucdp_conflicts_event_id.sql [  0.00s]
+16:04:04.355156 [debug]: Finished parsing target/generic_tests/not_null_stg_ucdp_conflicts_event_id.sql [  0.00s]
+16:04:04.357439 [info ]: Finished parsing [  0.04s]
+16:04:04.357694 [info ]: Started scheduling
+16:04:04.357826 [info ]: Finished scheduling [  0.00s]
+16:04:04.358575 [debug]: Initializing schema store with entry: Frontier(CanonicalFqn { catalog: "global-conflicts-500009", schema: "raw_conflict_data", table: "raw_data" }) and interval: None
+16:04:04.531642 [debug]: No platform credentials found, skipping remote license
+16:04:04.531689 [debug]: License check failed: Feature not licensed: 'lineage'
+16:04:04.531797 [debug]:    Started downloading relations (1 items)
+16:04:07.635757 [debug]: Query executed on node unknown:
+SELECT
+    table_catalog,
+    table_schema,
+    table_name,
+    table_type
+FROM 
+    `global-conflicts-500009`.`raw_conflict_data`.INFORMATION_SCHEMA.TABLES
+16:04:07.635995 [debug]:   Finished [  3.10s] downloading relations (1 items)
+16:04:07.657072 [info ]: Started building task graph
+16:04:07.657269 [info ]: Finished building task graph [  0.00s]
+16:04:10.609691 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+    select distinct schema_name from `global-conflicts-500009`.INFORMATION_SCHEMA.SCHEMATA;
+  
+16:04:10.609875 [info ]: Started rendering (10 nodes)
+16:04:10.609935 [info ]: Started model raw_conflict_data.stg_ucdp_conflicts
+16:04:10.609946 [debug]: Started rendering model raw_conflict_data.stg_ucdp_conflicts
+16:04:10.611065 [debug]: Compiled SQL for node model.global_conflicts.stg_ucdp_conflicts at target/compiled/global_conflicts/models/stg_ucdp_conflicts.sql
+16:04:10.611165 [debug]: Finished rendering [  0.00s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:04:10.611232 [info ]: Started analyzing (10 nodes)
+16:04:10.611259 [debug]: Started analyzing model raw_conflict_data.stg_ucdp_conflicts
+16:04:10.616501 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:04:10.616546 [info ]: Started running (10 nodes)
+16:04:10.616566 [info ]: Started running model raw_conflict_data.stg_ucdp_conflicts
+16:04:10.618541 [debug]: Invalid value for on_schema_change (None) specified. Setting default value of ignore.
+16:04:10.999585 [debug]: Writing runtime sql for node "model.global_conflicts.stg_ucdp_conflicts"
+16:04:23.502464 [debug]: Query executed on node model.global_conflicts.stg_ucdp_conflicts:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.stg_ucdp_conflicts", "profile_name": "global_conflicts", "target_name": "dev"} */
+-- back compat for old kwarg name
+  
+  
+        
+            
+            
+            
+            
+        
+    
+
+    
+
+    merge into `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` as DBT_INTERNAL_DEST
+        using (
+
+WITH raw_conflicts AS (
+    SELECT *,
+    -- This stamps the data for our final records so we know when dbt ran
+    CURRENT_TIMESTAMP() as loaded_at_timestamp
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`raw_data`
+    
+    
+    -- We CANNOT filter by the timestamp because we are generating it live.
+    -- We MUST use the unique 'id' to detect genuinely new rows from the API.
+    WHERE id > (SELECT MAX(event_id) FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`)
+    
+),
+
+renamed_and_cleaned AS (
+    SELECT 
+        id AS event_id,
+        year AS conflict_year,
+        type_of_violence,
+        side_a,
+        side_b,
+        country,
+        region,
+        latitude,
+        longitude,
+        best AS estimated_fatalities,
+        date_start,
+        date_end,
+        loaded_at_timestamp
+    FROM raw_conflicts
+    WHERE country IS NOT NULL
+)
+
+SELECT * FROM renamed_and_cleaned
+        ) as DBT_INTERNAL_SOURCE
+        on ((DBT_INTERNAL_SOURCE.event_id = DBT_INTERNAL_DEST.event_id))
+
+    
+    when matched then update set
+        `event_id` = DBT_INTERNAL_SOURCE.`event_id`,`conflict_year` = DBT_INTERNAL_SOURCE.`conflict_year`,`type_of_violence` = DBT_INTERNAL_SOURCE.`type_of_violence`,`side_a` = DBT_INTERNAL_SOURCE.`side_a`,`side_b` = DBT_INTERNAL_SOURCE.`side_b`,`country` = DBT_INTERNAL_SOURCE.`country`,`region` = DBT_INTERNAL_SOURCE.`region`,`latitude` = DBT_INTERNAL_SOURCE.`latitude`,`longitude` = DBT_INTERNAL_SOURCE.`longitude`,`estimated_fatalities` = DBT_INTERNAL_SOURCE.`estimated_fatalities`,`date_start` = DBT_INTERNAL_SOURCE.`date_start`,`date_end` = DBT_INTERNAL_SOURCE.`date_end`,`loaded_at_timestamp` = DBT_INTERNAL_SOURCE.`loaded_at_timestamp`
+    
+
+    when not matched then insert
+        (`event_id`, `conflict_year`, `type_of_violence`, `side_a`, `side_b`, `country`, `region`, `latitude`, `longitude`, `estimated_fatalities`, `date_start`, `date_end`, `loaded_at_timestamp`)
+    values
+        (`event_id`, `conflict_year`, `type_of_violence`, `side_a`, `side_b`, `country`, `region`, `latitude`, `longitude`, `estimated_fatalities`, `date_start`, `date_end`, `loaded_at_timestamp`)
+
+
+    
+16:04:23.506507 [info ]: Finished running [ 12.89s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:04:23.506660 [info ]:  Succeeded [ 12.89s] model raw_conflict_data.stg_ucdp_conflicts (incremental)
+16:04:23.506800 [info ]: Started model raw_conflict_data.dim_dates
+16:04:23.506830 [debug]: Started rendering model raw_conflict_data.dim_dates
+16:04:23.506873 [info ]: Started model raw_conflict_data.dim_violence_type
+16:04:23.506890 [debug]: Started rendering model raw_conflict_data.dim_violence_type
+16:04:23.506918 [info ]: Started model raw_conflict_data.dim_country
+16:04:23.506933 [debug]: Started rendering model raw_conflict_data.dim_country
+16:04:23.506967 [info ]: Started model raw_conflict_data.mart_country_conflict_features
+16:04:23.506988 [debug]: Started rendering model raw_conflict_data.mart_country_conflict_features
+16:04:23.507021 [info ]: Started model raw_conflict_data.dim_actors
+16:04:23.507036 [debug]: Started rendering model raw_conflict_data.dim_actors
+16:04:23.509017 [debug]: Compiled SQL for node model.global_conflicts.dim_dates at target/compiled/global_conflicts/models/dim_dates.sql
+16:04:23.509035 [debug]: Compiled SQL for node model.global_conflicts.mart_country_conflict_features at target/compiled/global_conflicts/models/mart_country_conflict_features.sql
+16:04:23.509158 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_dates [success]
+16:04:23.509261 [debug]: Started analyzing model raw_conflict_data.dim_dates
+16:04:23.509293 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_country_conflict_features [success]
+16:04:23.509338 [debug]: Started analyzing model raw_conflict_data.mart_country_conflict_features
+16:04:23.509937 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.dim_dates [success]
+16:04:23.509979 [info ]: Started running model raw_conflict_data.dim_dates
+16:04:23.510602 [debug]: Compiled SQL for node model.global_conflicts.dim_actors at target/compiled/global_conflicts/models/dim_actors.sql
+16:04:23.510641 [debug]: Compiled SQL for node model.global_conflicts.dim_violence_type at target/compiled/global_conflicts/models/dim_violence_type.sql
+16:04:23.510684 [debug]: Compiled SQL for node model.global_conflicts.dim_country at target/compiled/global_conflicts/models/dim_country.sql
+16:04:23.510825 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_actors [success]
+16:04:23.510883 [debug]: Started analyzing model raw_conflict_data.dim_actors
+16:04:23.510911 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_violence_type [success]
+16:04:23.510948 [debug]: Started analyzing model raw_conflict_data.dim_violence_type
+16:04:23.510972 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_country [success]
+16:04:23.511007 [debug]: Started analyzing model raw_conflict_data.dim_country
+16:04:23.516061 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.mart_country_conflict_features [success]
+16:04:23.516124 [info ]: Started running model raw_conflict_data.mart_country_conflict_features
+16:04:23.517343 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.dim_country [success]
+16:04:23.517378 [info ]: Started running model raw_conflict_data.dim_country
+16:04:23.517695 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.dim_actors [success]
+16:04:23.517729 [info ]: Started running model raw_conflict_data.dim_actors
+16:04:23.518627 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.dim_violence_type [success]
+16:04:23.518706 [info ]: Started running model raw_conflict_data.dim_violence_type
+16:04:23.527112 [debug]: Writing runtime sql for node "model.global_conflicts.dim_country"
+16:04:23.838696 [debug]: Writing runtime sql for node "model.global_conflicts.dim_dates"
+16:04:24.142263 [debug]: Writing runtime sql for node "model.global_conflicts.dim_actors"
+16:04:24.220606 [debug]: Writing runtime sql for node "model.global_conflicts.mart_country_conflict_features"
+16:04:24.259760 [debug]: Writing runtime sql for node "model.global_conflicts.dim_violence_type"
+16:04:26.343923 [debug]: Query executed on node model.global_conflicts.dim_country:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_country", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+
+  create or replace view `global-conflicts-500009`.`raw_conflict_data`.`dim_country`
+  OPTIONS()
+  as WITH source_data AS (
+    SELECT DISTINCT country, region 
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+)
+
+SELECT 
+    to_hex(md5(cast(coalesce(cast(country as string), '_dbt_utils_surrogate_key_null_') as string))) AS country_id,
+    country,
+    region
+FROM source_data;
+
+
+16:04:26.344794 [info ]: Finished running [  2.83s] model raw_conflict_data.dim_country [success]
+16:04:26.344853 [info ]:  Succeeded [  2.84s] model raw_conflict_data.dim_country (view)
+16:04:27.233422 [debug]: Query executed on node model.global_conflicts.dim_dates:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_dates", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`dim_dates`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT DISTINCT
+    conflict_year AS date_key,
+    conflict_year AS year,
+    -- Add more calendar logic here as needed!
+    '2026' AS fiscal_year
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    );
+  
+16:04:27.235491 [info ]: Finished running [  3.73s] model raw_conflict_data.dim_dates [success]
+16:04:27.235568 [info ]:  Succeeded [  3.73s] model raw_conflict_data.dim_dates (table)
+16:04:27.235692 [info ]: Started model raw_conflict_data.mart_global_trends_by_year
+16:04:27.235721 [debug]: Started rendering model raw_conflict_data.mart_global_trends_by_year
+16:04:27.235756 [info ]: Started model raw_conflict_data.mart_conflict_fatalities_by_country
+16:04:27.235774 [debug]: Started rendering model raw_conflict_data.mart_conflict_fatalities_by_country
+16:04:27.235804 [info ]: Started model raw_conflict_data.mart_violence_types_overview
+16:04:27.235821 [debug]: Started rendering model raw_conflict_data.mart_violence_types_overview
+16:04:27.237438 [debug]: Compiled SQL for node model.global_conflicts.mart_violence_types_overview at target/compiled/global_conflicts/models/mart_violence_types_overview.sql
+16:04:27.237473 [debug]: Compiled SQL for node model.global_conflicts.mart_global_trends_by_year at target/compiled/global_conflicts/models/mart_global_trends_by_year.sql
+16:04:27.237565 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_violence_types_overview [success]
+16:04:27.237637 [debug]: Compiled SQL for node model.global_conflicts.mart_conflict_fatalities_by_country at target/compiled/global_conflicts/models/mart_conflict_fatalities_by_country.sql
+16:04:27.237667 [debug]: Started analyzing model raw_conflict_data.mart_violence_types_overview
+16:04:27.237698 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_global_trends_by_year [success]
+16:04:27.237802 [debug]: Started analyzing model raw_conflict_data.mart_global_trends_by_year
+16:04:27.238031 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+16:04:27.238131 [debug]: Started analyzing model raw_conflict_data.mart_conflict_fatalities_by_country
+16:04:27.243093 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+16:04:27.243155 [info ]: Started running model raw_conflict_data.mart_conflict_fatalities_by_country
+16:04:27.243391 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.mart_global_trends_by_year [success]
+16:04:27.243439 [info ]: Started running model raw_conflict_data.mart_global_trends_by_year
+16:04:27.244183 [warn ]: [SyntaxInvalid (dbt0101)]: no viable alternative at input 'case when f.type_of_violence is 1'
+  --> models/mart_violence_types_overview.sql:12:37 (target/compiled/global_conflicts/models/mart_violence_types_overview.sql:12:37)
+16:04:27.244491 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.mart_violence_types_overview [success]
+16:04:27.244569 [info ]: Started running model raw_conflict_data.mart_violence_types_overview
+16:04:27.247403 [debug]: Writing runtime sql for node "model.global_conflicts.mart_conflict_fatalities_by_country"
+16:04:27.350136 [debug]: Query executed on node model.global_conflicts.dim_violence_type:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_violence_type", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`dim_violence_type`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT DISTINCT
+    to_hex(md5(cast(coalesce(cast(type_of_violence as string), '_dbt_utils_surrogate_key_null_') as string))) AS violence_type_id,
+    type_of_violence,
+    CASE 
+        WHEN type_of_violence = 1 THEN 'State-based'
+        WHEN type_of_violence = 2 THEN 'Non-state'
+        WHEN type_of_violence = 3 THEN 'One-sided'
+        ELSE 'Other'
+    END AS description
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    );
+  
+16:04:27.351499 [info ]: Finished running [  3.83s] model raw_conflict_data.dim_violence_type [success]
+16:04:27.351592 [info ]:  Succeeded [  3.84s] model raw_conflict_data.dim_violence_type (table)
+16:04:27.563888 [debug]: Writing runtime sql for node "model.global_conflicts.mart_violence_types_overview"
+16:04:27.563946 [debug]: Writing runtime sql for node "model.global_conflicts.mart_global_trends_by_year"
+16:04:28.077098 [debug]: Query executed on node model.global_conflicts.mart_country_conflict_features:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_country_conflict_features", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_country_conflict_features`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+WITH yearly_country_stats AS (
+    -- Step 1: Aggregate the data by Country and Year
+    SELECT 
+        country,
+        conflict_year,
+        SUM(estimated_fatalities) AS total_fatalities,
+        COUNT(event_id) AS total_events,
+        COUNT(DISTINCT type_of_violence) AS violence_types_present
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    GROUP BY country, conflict_year
+),
+
+rolling_features AS (
+    -- Step 2: Use Window Functions to "look ahead" 5 years
+    SELECT
+        country,
+        conflict_year,
+        total_fatalities,
+        total_events,
+        violence_types_present,
+        
+        -- This looks at the next 5 years for the same country and sums the events
+        SUM(total_events) OVER (
+            PARTITION BY country 
+            ORDER BY conflict_year 
+            RANGE BETWEEN 1 FOLLOWING AND 5 FOLLOWING
+        ) AS future_events_5yr
+    FROM yearly_country_stats
+)
+
+-- Step 3: Create the final binary label for the ML Model (1 = Yes, 0 = No)
+SELECT
+    country,
+    conflict_year,
+    total_fatalities,
+    total_events,
+    violence_types_present,
+    IF(IFNULL(future_events_5yr, 0) > 0, 1, 0) AS target_conflict_next_5_years
+FROM rolling_features
+    );
+  
+16:04:28.079267 [info ]: Finished running [  4.56s] model raw_conflict_data.mart_country_conflict_features [success]
+16:04:28.079353 [info ]:  Succeeded [  4.57s] model raw_conflict_data.mart_country_conflict_features (table)
+16:04:28.079500 [info ]: Started model raw_conflict_data.mart_conflict_risk_predictions
+16:04:28.079530 [debug]: Started rendering model raw_conflict_data.mart_conflict_risk_predictions
+16:04:28.082737 [debug]: Compiled SQL for node model.global_conflicts.mart_conflict_risk_predictions at target/compiled/global_conflicts/models/mart_conflict_risk_predictions.sql
+16:04:28.082854 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+16:04:28.082892 [info ]: Finished rendering [ 17.47s] (10 nodes, 0 skipped, 0 errors)
+16:04:28.082976 [debug]: Started analyzing model raw_conflict_data.mart_conflict_risk_predictions
+16:04:28.087188 [warn ]: [SyntaxInvalid (dbt0101)]: extraneous input '`global-conflicts-500009.raw_conflict_data.predict_conflict_risk`' expecting one of ',', 'COPARTITION', ')'
+  --> models/mart_conflict_risk_predictions.sql:26:15 (target/compiled/global_conflicts/models/mart_conflict_risk_predictions.sql:26:15)
+16:04:28.087300 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+16:04:28.087403 [info ]: Finished analyzing [ 17.48s] (10 nodes, 0 skipped, 0 errors)
+16:04:28.087477 [info ]: Started running model raw_conflict_data.mart_conflict_risk_predictions
+16:04:28.091087 [debug]: Query executed on node model.global_conflicts.mart_violence_types_overview:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_violence_types_overview", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_violence_types_overview`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT 
+    c.country,
+    c.region,
+    f.side_a,
+    f.side_b,
+    d.year AS date_year,
+    f.type_of_violence,
+    SUM(f.estimated_fatalities) AS total_fatalities,
+    COUNT(f.event_id) AS total_conflict_events,
+    case when f.type_of_violence is 1 then 'State-based'
+         when f.type_of_violence is 2 then 'Non-state-based'
+         when f.type_of_violence is 3 then 'One-sided-violence'
+         else 'Unknown'
+    end as violence_type
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` f
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_country` c ON f.country = c.country
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_dates` d ON f.conflict_year = d.year
+GROUP BY c.country, c.region, d.year, f.type_of_violence, f.side_a, f.side_b, violence_type
+ORDER BY total_fatalities DESC
+    );
+  
+16:04:28.227951 [debug]: Query executed on node model.global_conflicts.dim_actors:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_actors", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`dim_actors`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+WITH all_actors AS (
+    SELECT side_a AS actor_name FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    UNION DISTINCT
+    SELECT side_b AS actor_name FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+)
+
+SELECT 
+    to_hex(md5(cast(coalesce(cast(actor_name as string), '_dbt_utils_surrogate_key_null_') as string))) AS actor_id,
+    actor_name
+FROM all_actors
+WHERE actor_name IS NOT NULL
+    );
+  
+16:04:28.230001 [info ]: Finished running [  4.71s] model raw_conflict_data.dim_actors [success]
+16:04:28.230091 [info ]:  Succeeded [  4.72s] model raw_conflict_data.dim_actors (table)
+16:04:28.418703 [debug]: Writing runtime sql for node "model.global_conflicts.mart_conflict_risk_predictions"
+16:04:29.096783 [error]: [DbDriverFailed (dbt1308)]: Database Error in model mart_violence_types_overview (target/run/global_conflicts/models/mart_violence_types_overview.sql)
+  [BigQuery] googleapi: Error 400: Syntax error: Expected keyword FALSE or keyword NULL or keyword TRUE or keyword UNKNOWN but got integer literal "1" at [25:37], invalidQuery (Query: https://console.cloud.google.com/bigquery?project=global-conflicts-500009&j=bq:US:uNlcuZok4THA8oEYdDO0oQPM31f&page=queryresults)
+  (in run/global_conflicts/models/mart_violence_types_overview.sql:1:13)
+16:04:29.097029 [info ]: Finished running [  1.85s] model raw_conflict_data.mart_violence_types_overview [error]
+16:04:29.097200 [info ]:     Failed [  1.86s] model raw_conflict_data.mart_violence_types_overview (table)
+16:04:29.778515 [debug]: Query executed on node model.global_conflicts.mart_conflict_fatalities_by_country:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_conflict_fatalities_by_country", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+
+  create or replace view `global-conflicts-500009`.`raw_conflict_data`.`mart_conflict_fatalities_by_country`
+  OPTIONS()
+  as SELECT 
+    c.country,
+    c.region,
+    d.year AS conflict_year,
+    SUM(f.estimated_fatalities) AS total_fatalities,
+    COUNT(f.event_id) AS total_conflict_events
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` f
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_country` c ON f.country = c.country
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_dates` d ON f.conflict_year = d.year
+GROUP BY c.country, c.region, d.year
+ORDER BY total_fatalities DESC;
+
+
+16:04:29.779429 [info ]: Finished running [  2.54s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+16:04:29.779489 [info ]:  Succeeded [  2.54s] model raw_conflict_data.mart_conflict_fatalities_by_country (view)
+16:04:30.969181 [debug]: Query executed on node model.global_conflicts.mart_global_trends_by_year:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_global_trends_by_year", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_global_trends_by_year`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT 
+    d.year AS conflict_year,
+    COUNT(f.event_id) AS total_conflict_events,
+    SUM(f.estimated_fatalities) AS total_fatalities,
+    ROUND(SUM(f.estimated_fatalities) / COUNT(f.event_id), 2) AS average_fatalities_per_event
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` f
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_dates` d ON f.conflict_year = d.year
+GROUP BY d.year
+ORDER BY d.year DESC    
+    );
+  
+16:04:30.970026 [info ]: Finished running [  3.73s] model raw_conflict_data.mart_global_trends_by_year [success]
+16:04:30.970075 [info ]:  Succeeded [  3.73s] model raw_conflict_data.mart_global_trends_by_year (table)
+16:04:32.915069 [debug]: Query executed on node model.global_conflicts.mart_conflict_risk_predictions:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_conflict_risk_predictions", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_conflict_risk_predictions`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+WITH latest_country_data AS (
+    -- Step 1: Grab only the most recent year of data for each country
+    -- We explicitly list only the features the ML model expects, plus the ones we want in the final output.
+    SELECT 
+        country,
+        conflict_year,
+        total_fatalities,
+        total_events,
+        violence_types_present
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`mart_country_conflict_features`
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY country ORDER BY conflict_year DESC) = 1
+),
+
+predictions AS (
+    -- Step 2: Feed that recent data into your BigQuery ML model
+    -- We explicitly select the original columns we need for the dashboard, 
+    -- PLUS the specific probability array column that ML.PREDICT generates.
+    SELECT 
+        country,
+        conflict_year,
+        total_events,
+        predicted_target_conflict_next_5_years_probs
+    FROM ML.PREDICT(
+        MODEL `global-conflicts-500009.raw_conflict_data.predict_conflict_risk`, 
+        (
+            SELECT 
+                country,
+                conflict_year,
+                total_fatalities,
+                total_events,
+                violence_types_present
+            FROM latest_country_data
+        )
+    )
+)
+
+-- Step 3: Clean up the output for your final dashboard
+SELECT 
+    country,
+    conflict_year AS last_data_year,
+    total_events AS recent_conflict_events,
+    
+    -- BQML outputs an array of probabilities. We extract the probability of '1' (Conflict)
+    ROUND(prob.prob * 100, 2) AS conflict_probability_percent,
+    
+    -- Categorize the risk based on the probability percentage
+    CASE 
+        WHEN prob.prob > 0.97 THEN 'Critical Risk'
+        WHEN prob.prob > 0.95 THEN 'High Risk'
+        WHEN prob.prob > 0.82 THEN 'Medium Risk'
+        ELSE 'Low Risk'
+    END AS risk_category
+
+FROM predictions, UNNEST(predicted_target_conflict_next_5_years_probs) AS prob
+WHERE prob.label = 1 
+ORDER BY conflict_probability_percent DESC
+    );
+  
+16:04:32.915872 [info ]: Finished running [  4.83s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+16:04:32.915904 [info ]: Finished running [ 22.30s] (10 nodes, 0 skipped, 1 errors)
+16:04:32.915930 [info ]:  Succeeded [  4.83s] model raw_conflict_data.mart_conflict_risk_predictions (table)
+16:04:32.937058 [info ]: New version available 2.0.0-preview.196 (run `dbt system update`)
+16:04:33.012963 [info ]: 
+==================== Execution Summary =====================
+Finished 'run' with 2 warnings and 1 error for target 'dev' [28.9s]
+Processed: 10 models
+Summary: 10 total | 9 success | 1 error
+==================== 2026-07-11T16:06:11.070067Z | 019f51ed-dd72-7e92-a9e6-31ab2d8f7d2b ====================
+16:06:11.072181 [info ]: dbt-fusion 2.0.0-preview.193
+16:06:11.074575 [info ]: Started loading project
+16:06:11.086815 [info ]: Loading profiles.yml
+16:06:11.271220 [info ]: Loading packages.yml
+16:06:11.273066 [debug]:    Started loading packages
+16:06:11.282822 [debug]:     Loaded [  0.01s] packages
+16:06:11.286797 [info ]: Finished loading project [  0.21s]
+16:06:11.289260 [info ]: Started parsing
+16:06:11.341981 [debug]: Finished parsing models/schema.yml [  0.00s]
+16:06:11.342604 [debug]: Finished parsing models/sources.yml [  0.00s]
+16:06:11.353623 [debug]: Finished parsing models/dim_actors.sql [  0.01s]
+16:06:11.354300 [debug]: Finished parsing models/dim_country.sql [  0.00s]
+16:06:11.354756 [debug]: Finished parsing models/dim_dates.sql [  0.00s]
+16:06:11.355441 [debug]: Finished parsing models/dim_violence_type.sql [  0.00s]
+16:06:11.356018 [debug]: Finished parsing models/mart_conflict_fatalities_by_country.sql [  0.00s]
+16:06:11.356649 [debug]: Finished parsing models/mart_conflict_risk_predictions.sql [  0.00s]
+16:06:11.357318 [debug]: Finished parsing models/mart_country_conflict_features.sql [  0.00s]
+16:06:11.357776 [debug]: Finished parsing models/mart_global_trends_by_year.sql [  0.00s]
+16:06:11.358196 [debug]: Finished parsing models/mart_violence_types_overview.sql [  0.00s]
+16:06:11.359067 [debug]: Finished parsing models/stg_ucdp_conflicts.sql [  0.00s]
+16:06:11.368583 [debug]: Finished parsing target/generic_tests/not_null_mart_conflict_fatalities_by_country_country.sql [  0.00s]
+16:06:11.368869 [debug]: Finished parsing target/generic_tests/unique_mart_global_trends_by_year_conflict_year.sql [  0.00s]
+16:06:11.369116 [debug]: Finished parsing target/generic_tests/not_null_mart_global_trends_by_year_conflict_year.sql [  0.00s]
+16:06:11.369356 [debug]: Finished parsing target/generic_tests/not_null_stg_ucdp_conflicts_country.sql [  0.00s]
+16:06:11.369939 [debug]: Finished parsing target/generic_tests/unique_stg_ucdp_conflicts_event_id.sql [  0.00s]
+16:06:11.370279 [debug]: Finished parsing target/generic_tests/not_null_stg_ucdp_conflicts_event_id.sql [  0.00s]
+16:06:11.374882 [info ]: Finished parsing [  0.09s]
+16:06:11.377379 [info ]: Started scheduling
+16:06:11.378431 [info ]: Finished scheduling [  0.00s]
+16:06:11.381393 [debug]: Initializing schema store with entry: Frontier(CanonicalFqn { catalog: "global-conflicts-500009", schema: "raw_conflict_data", table: "raw_data" }) and interval: None
+16:06:11.536553 [debug]: No platform credentials found, skipping remote license
+16:06:11.537280 [debug]: License check failed: Feature not licensed: 'lineage'
+16:06:11.539092 [debug]:    Started downloading relations (1 items)
+16:06:14.987091 [debug]: Query executed on node unknown:
+SELECT
+    table_catalog,
+    table_schema,
+    table_name,
+    table_type
+FROM 
+    `global-conflicts-500009`.`raw_conflict_data`.INFORMATION_SCHEMA.TABLES
+16:06:14.987968 [debug]:   Finished [  3.45s] downloading relations (1 items)
+16:06:15.012000 [info ]: Started building task graph
+16:06:15.015358 [info ]: Finished building task graph [  0.00s]
+16:06:18.077320 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+    select distinct schema_name from `global-conflicts-500009`.INFORMATION_SCHEMA.SCHEMATA;
+  
+16:06:18.084244 [info ]: Started rendering (10 nodes)
+16:06:18.084995 [info ]: Started model raw_conflict_data.stg_ucdp_conflicts
+16:06:18.085400 [debug]: Started rendering model raw_conflict_data.stg_ucdp_conflicts
+16:06:18.102740 [debug]: Compiled SQL for node model.global_conflicts.stg_ucdp_conflicts at target/compiled/global_conflicts/models/stg_ucdp_conflicts.sql
+16:06:18.103506 [debug]: Finished rendering [  0.02s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:06:18.104395 [info ]: Started analyzing (10 nodes)
+16:06:18.104623 [debug]: Started analyzing model raw_conflict_data.stg_ucdp_conflicts
+16:06:18.127127 [debug]: Finished analyzing [  0.02s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:06:18.127213 [info ]: Started running (10 nodes)
+16:06:18.127256 [info ]: Started running model raw_conflict_data.stg_ucdp_conflicts
+16:06:18.131501 [debug]: Invalid value for on_schema_change (None) specified. Setting default value of ignore.
+16:06:18.426420 [debug]: Writing runtime sql for node "model.global_conflicts.stg_ucdp_conflicts"
+16:06:28.668517 [debug]: Query executed on node model.global_conflicts.stg_ucdp_conflicts:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.stg_ucdp_conflicts", "profile_name": "global_conflicts", "target_name": "dev"} */
+-- back compat for old kwarg name
+  
+  
+        
+            
+            
+            
+            
+        
+    
+
+    
+
+    merge into `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` as DBT_INTERNAL_DEST
+        using (
+
+WITH raw_conflicts AS (
+    SELECT *,
+    -- This stamps the data for our final records so we know when dbt ran
+    CURRENT_TIMESTAMP() as loaded_at_timestamp
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`raw_data`
+    
+    
+    -- We CANNOT filter by the timestamp because we are generating it live.
+    -- We MUST use the unique 'id' to detect genuinely new rows from the API.
+    WHERE id > (SELECT MAX(event_id) FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`)
+    
+),
+
+renamed_and_cleaned AS (
+    SELECT 
+        id AS event_id,
+        year AS conflict_year,
+        type_of_violence,
+        side_a,
+        side_b,
+        country,
+        region,
+        latitude,
+        longitude,
+        best AS estimated_fatalities,
+        date_start,
+        date_end,
+        loaded_at_timestamp
+    FROM raw_conflicts
+    WHERE country IS NOT NULL
+)
+
+SELECT * FROM renamed_and_cleaned
+        ) as DBT_INTERNAL_SOURCE
+        on ((DBT_INTERNAL_SOURCE.event_id = DBT_INTERNAL_DEST.event_id))
+
+    
+    when matched then update set
+        `event_id` = DBT_INTERNAL_SOURCE.`event_id`,`conflict_year` = DBT_INTERNAL_SOURCE.`conflict_year`,`type_of_violence` = DBT_INTERNAL_SOURCE.`type_of_violence`,`side_a` = DBT_INTERNAL_SOURCE.`side_a`,`side_b` = DBT_INTERNAL_SOURCE.`side_b`,`country` = DBT_INTERNAL_SOURCE.`country`,`region` = DBT_INTERNAL_SOURCE.`region`,`latitude` = DBT_INTERNAL_SOURCE.`latitude`,`longitude` = DBT_INTERNAL_SOURCE.`longitude`,`estimated_fatalities` = DBT_INTERNAL_SOURCE.`estimated_fatalities`,`date_start` = DBT_INTERNAL_SOURCE.`date_start`,`date_end` = DBT_INTERNAL_SOURCE.`date_end`,`loaded_at_timestamp` = DBT_INTERNAL_SOURCE.`loaded_at_timestamp`
+    
+
+    when not matched then insert
+        (`event_id`, `conflict_year`, `type_of_violence`, `side_a`, `side_b`, `country`, `region`, `latitude`, `longitude`, `estimated_fatalities`, `date_start`, `date_end`, `loaded_at_timestamp`)
+    values
+        (`event_id`, `conflict_year`, `type_of_violence`, `side_a`, `side_b`, `country`, `region`, `latitude`, `longitude`, `estimated_fatalities`, `date_start`, `date_end`, `loaded_at_timestamp`)
+
+
+    
+16:06:28.672474 [info ]: Finished running [ 10.55s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:06:28.672578 [info ]:  Succeeded [ 10.59s] model raw_conflict_data.stg_ucdp_conflicts (incremental)
+16:06:28.673006 [info ]: Started model raw_conflict_data.mart_country_conflict_features
+16:06:28.673033 [debug]: Started rendering model raw_conflict_data.mart_country_conflict_features
+16:06:28.673067 [info ]: Started model raw_conflict_data.dim_actors
+16:06:28.673084 [debug]: Started rendering model raw_conflict_data.dim_actors
+16:06:28.673108 [info ]: Started model raw_conflict_data.dim_country
+16:06:28.673124 [debug]: Started rendering model raw_conflict_data.dim_country
+16:06:28.673150 [info ]: Started model raw_conflict_data.dim_dates
+16:06:28.673167 [debug]: Started rendering model raw_conflict_data.dim_dates
+16:06:28.673191 [info ]: Started model raw_conflict_data.dim_violence_type
+16:06:28.673203 [debug]: Started rendering model raw_conflict_data.dim_violence_type
+16:06:28.674777 [debug]: Compiled SQL for node model.global_conflicts.mart_country_conflict_features at target/compiled/global_conflicts/models/mart_country_conflict_features.sql
+16:06:28.674790 [debug]: Compiled SQL for node model.global_conflicts.dim_dates at target/compiled/global_conflicts/models/dim_dates.sql
+16:06:28.674905 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_dates [success]
+16:06:28.674973 [debug]: Started analyzing model raw_conflict_data.dim_dates
+16:06:28.675012 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_country_conflict_features [success]
+16:06:28.675054 [debug]: Started analyzing model raw_conflict_data.mart_country_conflict_features
+16:06:28.675442 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.dim_dates [success]
+16:06:28.675515 [info ]: Started running model raw_conflict_data.dim_dates
+16:06:28.676300 [debug]: Compiled SQL for node model.global_conflicts.dim_violence_type at target/compiled/global_conflicts/models/dim_violence_type.sql
+16:06:28.676399 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_violence_type [success]
+16:06:28.676440 [debug]: Started analyzing model raw_conflict_data.dim_violence_type
+16:06:28.676485 [debug]: Compiled SQL for node model.global_conflicts.dim_country at target/compiled/global_conflicts/models/dim_country.sql
+16:06:28.676569 [debug]: Compiled SQL for node model.global_conflicts.dim_actors at target/compiled/global_conflicts/models/dim_actors.sql
+16:06:28.676641 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_country [success]
+16:06:28.676702 [debug]: Started analyzing model raw_conflict_data.dim_country
+16:06:28.676990 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_actors [success]
+16:06:28.677032 [debug]: Started analyzing model raw_conflict_data.dim_actors
+16:06:28.681736 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.mart_country_conflict_features [success]
+16:06:28.681802 [info ]: Started running model raw_conflict_data.mart_country_conflict_features
+16:06:28.682721 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.dim_country [success]
+16:06:28.682758 [info ]: Started running model raw_conflict_data.dim_country
+16:06:28.683186 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.dim_actors [success]
+16:06:28.683215 [info ]: Started running model raw_conflict_data.dim_actors
+16:06:28.683845 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.dim_violence_type [success]
+16:06:28.683924 [info ]: Started running model raw_conflict_data.dim_violence_type
+16:06:28.692088 [debug]: Writing runtime sql for node "model.global_conflicts.dim_country"
+16:06:29.010285 [debug]: Writing runtime sql for node "model.global_conflicts.dim_dates"
+16:06:29.307287 [debug]: Writing runtime sql for node "model.global_conflicts.mart_country_conflict_features"
+16:06:29.340120 [debug]: Writing runtime sql for node "model.global_conflicts.dim_violence_type"
+16:06:29.492847 [debug]: Writing runtime sql for node "model.global_conflicts.dim_actors"
+16:06:31.265916 [debug]: Query executed on node model.global_conflicts.dim_country:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_country", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+
+  create or replace view `global-conflicts-500009`.`raw_conflict_data`.`dim_country`
+  OPTIONS()
+  as WITH source_data AS (
+    SELECT DISTINCT country, region 
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+)
+
+SELECT 
+    to_hex(md5(cast(coalesce(cast(country as string), '_dbt_utils_surrogate_key_null_') as string))) AS country_id,
+    country,
+    region
+FROM source_data;
+
+
+16:06:31.266760 [info ]: Finished running [  2.58s] model raw_conflict_data.dim_country [success]
+16:06:31.266822 [info ]:  Succeeded [  2.59s] model raw_conflict_data.dim_country (view)
+16:06:32.448096 [debug]: Query executed on node model.global_conflicts.dim_dates:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_dates", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`dim_dates`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT DISTINCT
+    conflict_year AS date_key,
+    conflict_year AS year,
+    -- Add more calendar logic here as needed!
+    '2026' AS fiscal_year
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    );
+  
+16:06:32.448910 [info ]: Finished running [  3.77s] model raw_conflict_data.dim_dates [success]
+16:06:32.448970 [info ]:  Succeeded [  3.77s] model raw_conflict_data.dim_dates (table)
+16:06:32.449033 [info ]: Started model raw_conflict_data.mart_violence_types_overview
+16:06:32.449048 [debug]: Started rendering model raw_conflict_data.mart_violence_types_overview
+16:06:32.449064 [info ]: Started model raw_conflict_data.mart_global_trends_by_year
+16:06:32.449072 [debug]: Started rendering model raw_conflict_data.mart_global_trends_by_year
+16:06:32.449083 [info ]: Started model raw_conflict_data.mart_conflict_fatalities_by_country
+16:06:32.449089 [debug]: Started rendering model raw_conflict_data.mart_conflict_fatalities_by_country
+16:06:32.451210 [debug]: Compiled SQL for node model.global_conflicts.mart_conflict_fatalities_by_country at target/compiled/global_conflicts/models/mart_conflict_fatalities_by_country.sql
+16:06:32.451289 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+16:06:32.451321 [debug]: Started analyzing model raw_conflict_data.mart_conflict_fatalities_by_country
+16:06:32.451369 [debug]: Compiled SQL for node model.global_conflicts.mart_global_trends_by_year at target/compiled/global_conflicts/models/mart_global_trends_by_year.sql
+16:06:32.451374 [debug]: Compiled SQL for node model.global_conflicts.mart_violence_types_overview at target/compiled/global_conflicts/models/mart_violence_types_overview.sql
+16:06:32.451425 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_violence_types_overview [success]
+16:06:32.451449 [debug]: Started analyzing model raw_conflict_data.mart_violence_types_overview
+16:06:32.451460 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_global_trends_by_year [success]
+16:06:32.451473 [debug]: Started analyzing model raw_conflict_data.mart_global_trends_by_year
+16:06:32.453748 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+16:06:32.453770 [info ]: Started running model raw_conflict_data.mart_conflict_fatalities_by_country
+16:06:32.454034 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.mart_global_trends_by_year [success]
+16:06:32.454055 [info ]: Started running model raw_conflict_data.mart_global_trends_by_year
+16:06:32.455144 [warn ]: [SyntaxInvalid (dbt0101)]: no viable alternative at input 'case when f.type_of_violence is '1''
+  --> models/mart_violence_types_overview.sql:12:37 (target/compiled/global_conflicts/models/mart_violence_types_overview.sql:12:37)
+16:06:32.455598 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.mart_violence_types_overview [success]
+16:06:32.455627 [info ]: Started running model raw_conflict_data.mart_violence_types_overview
+16:06:32.455761 [debug]: Writing runtime sql for node "model.global_conflicts.mart_conflict_fatalities_by_country"
+16:06:32.738834 [debug]: Writing runtime sql for node "model.global_conflicts.mart_global_trends_by_year"
+16:06:33.247221 [debug]: Query executed on node model.global_conflicts.mart_country_conflict_features:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_country_conflict_features", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_country_conflict_features`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+WITH yearly_country_stats AS (
+    -- Step 1: Aggregate the data by Country and Year
+    SELECT 
+        country,
+        conflict_year,
+        SUM(estimated_fatalities) AS total_fatalities,
+        COUNT(event_id) AS total_events,
+        COUNT(DISTINCT type_of_violence) AS violence_types_present
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    GROUP BY country, conflict_year
+),
+
+rolling_features AS (
+    -- Step 2: Use Window Functions to "look ahead" 5 years
+    SELECT
+        country,
+        conflict_year,
+        total_fatalities,
+        total_events,
+        violence_types_present,
+        
+        -- This looks at the next 5 years for the same country and sums the events
+        SUM(total_events) OVER (
+            PARTITION BY country 
+            ORDER BY conflict_year 
+            RANGE BETWEEN 1 FOLLOWING AND 5 FOLLOWING
+        ) AS future_events_5yr
+    FROM yearly_country_stats
+)
+
+-- Step 3: Create the final binary label for the ML Model (1 = Yes, 0 = No)
+SELECT
+    country,
+    conflict_year,
+    total_fatalities,
+    total_events,
+    violence_types_present,
+    IF(IFNULL(future_events_5yr, 0) > 0, 1, 0) AS target_conflict_next_5_years
+FROM rolling_features
+    );
+  
+16:06:33.249213 [info ]: Finished running [  4.57s] model raw_conflict_data.mart_country_conflict_features [success]
+16:06:33.249399 [info ]:  Succeeded [  4.57s] model raw_conflict_data.mart_country_conflict_features (table)
+16:06:33.249518 [info ]: Started model raw_conflict_data.mart_conflict_risk_predictions
+16:06:33.249547 [debug]: Started rendering model raw_conflict_data.mart_conflict_risk_predictions
+16:06:33.252610 [debug]: Compiled SQL for node model.global_conflicts.mart_conflict_risk_predictions at target/compiled/global_conflicts/models/mart_conflict_risk_predictions.sql
+16:06:33.252727 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+16:06:33.252768 [info ]: Finished rendering [ 15.17s] (10 nodes, 0 skipped, 0 errors)
+16:06:33.252849 [debug]: Started analyzing model raw_conflict_data.mart_conflict_risk_predictions
+16:06:33.256766 [warn ]: [SyntaxInvalid (dbt0101)]: extraneous input '`global-conflicts-500009.raw_conflict_data.predict_conflict_risk`' expecting one of ',', 'COPARTITION', ')'
+  --> models/mart_conflict_risk_predictions.sql:26:15 (target/compiled/global_conflicts/models/mart_conflict_risk_predictions.sql:26:15)
+16:06:33.256889 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+16:06:33.256942 [info ]: Finished analyzing [ 15.15s] (10 nodes, 0 skipped, 0 errors)
+16:06:33.257007 [info ]: Started running model raw_conflict_data.mart_conflict_risk_predictions
+16:06:33.275925 [debug]: Writing runtime sql for node "model.global_conflicts.mart_violence_types_overview"
+16:06:33.321509 [debug]: Query executed on node model.global_conflicts.dim_violence_type:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_violence_type", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`dim_violence_type`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT DISTINCT
+    to_hex(md5(cast(coalesce(cast(type_of_violence as string), '_dbt_utils_surrogate_key_null_') as string))) AS violence_type_id,
+    type_of_violence,
+    CASE 
+        WHEN type_of_violence = 1 THEN 'State-based'
+        WHEN type_of_violence = 2 THEN 'Non-state'
+        WHEN type_of_violence = 3 THEN 'One-sided'
+        ELSE 'Other'
+    END AS description
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    );
+  
+16:06:33.322767 [info ]: Finished running [  4.64s] model raw_conflict_data.dim_violence_type [success]
+16:06:33.322811 [info ]:  Succeeded [  4.65s] model raw_conflict_data.dim_violence_type (table)
+16:06:33.567831 [debug]: Writing runtime sql for node "model.global_conflicts.mart_conflict_risk_predictions"
+16:06:33.837627 [debug]: Query executed on node model.global_conflicts.mart_violence_types_overview:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_violence_types_overview", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_violence_types_overview`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT 
+    c.country,
+    c.region,
+    f.side_a,
+    f.side_b,
+    d.year AS date_year,
+    f.type_of_violence,
+    SUM(f.estimated_fatalities) AS total_fatalities,
+    COUNT(f.event_id) AS total_conflict_events,
+    case when f.type_of_violence is '1' then 'State-based'
+         when f.type_of_violence is '2' then 'Non-state-based'
+         when f.type_of_violence is '3' then 'One-sided-violence'
+         else 'Unknown'
+    end as violence_type
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` f
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_country` c ON f.country = c.country
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_dates` d ON f.conflict_year = d.year
+GROUP BY c.country, c.region, d.year, f.type_of_violence, f.side_a, f.side_b, violence_type
+ORDER BY total_fatalities DESC
+    );
+  
+16:06:34.150617 [debug]: Query executed on node model.global_conflicts.dim_actors:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_actors", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`dim_actors`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+WITH all_actors AS (
+    SELECT side_a AS actor_name FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    UNION DISTINCT
+    SELECT side_b AS actor_name FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+)
+
+SELECT 
+    to_hex(md5(cast(coalesce(cast(actor_name as string), '_dbt_utils_surrogate_key_null_') as string))) AS actor_id,
+    actor_name
+FROM all_actors
+WHERE actor_name IS NOT NULL
+    );
+  
+16:06:34.152282 [info ]: Finished running [  5.47s] model raw_conflict_data.dim_actors [success]
+16:06:34.152345 [info ]:  Succeeded [  5.48s] model raw_conflict_data.dim_actors (table)
+16:06:34.649370 [debug]: Query executed on node model.global_conflicts.mart_conflict_fatalities_by_country:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_conflict_fatalities_by_country", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+
+  create or replace view `global-conflicts-500009`.`raw_conflict_data`.`mart_conflict_fatalities_by_country`
+  OPTIONS()
+  as SELECT 
+    c.country,
+    c.region,
+    d.year AS conflict_year,
+    SUM(f.estimated_fatalities) AS total_fatalities,
+    COUNT(f.event_id) AS total_conflict_events
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` f
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_country` c ON f.country = c.country
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_dates` d ON f.conflict_year = d.year
+GROUP BY c.country, c.region, d.year
+ORDER BY total_fatalities DESC;
+
+
+16:06:34.651899 [info ]: Finished running [  2.20s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+16:06:34.651992 [info ]:  Succeeded [  2.20s] model raw_conflict_data.mart_conflict_fatalities_by_country (view)
+16:06:34.843623 [error]: [DbDriverFailed (dbt1308)]: Database Error in model mart_violence_types_overview (target/run/global_conflicts/models/mart_violence_types_overview.sql)
+  [BigQuery] googleapi: Error 400: Syntax error: Expected keyword FALSE or keyword NULL or keyword TRUE or keyword UNKNOWN but got string literal '1' at [25:37], invalidQuery (Query: https://console.cloud.google.com/bigquery?project=global-conflicts-500009&j=bq:US:p2YruONkSGOMrb4QsPk6EtzkcUS&page=queryresults)
+  (in run/global_conflicts/models/mart_violence_types_overview.sql:1:13)
+16:06:34.843816 [info ]: Finished running [  2.39s] model raw_conflict_data.mart_violence_types_overview [error]
+16:06:34.843945 [info ]:     Failed [  2.39s] model raw_conflict_data.mart_violence_types_overview (table)
+16:06:36.500987 [debug]: Query executed on node model.global_conflicts.mart_global_trends_by_year:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_global_trends_by_year", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_global_trends_by_year`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT 
+    d.year AS conflict_year,
+    COUNT(f.event_id) AS total_conflict_events,
+    SUM(f.estimated_fatalities) AS total_fatalities,
+    ROUND(SUM(f.estimated_fatalities) / COUNT(f.event_id), 2) AS average_fatalities_per_event
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` f
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_dates` d ON f.conflict_year = d.year
+GROUP BY d.year
+ORDER BY d.year DESC    
+    );
+  
+16:06:36.501940 [info ]: Finished running [  4.05s] model raw_conflict_data.mart_global_trends_by_year [success]
+16:06:36.501982 [info ]:  Succeeded [  4.05s] model raw_conflict_data.mart_global_trends_by_year (table)
+16:06:38.335543 [debug]: Query executed on node model.global_conflicts.mart_conflict_risk_predictions:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_conflict_risk_predictions", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_conflict_risk_predictions`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+WITH latest_country_data AS (
+    -- Step 1: Grab only the most recent year of data for each country
+    -- We explicitly list only the features the ML model expects, plus the ones we want in the final output.
+    SELECT 
+        country,
+        conflict_year,
+        total_fatalities,
+        total_events,
+        violence_types_present
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`mart_country_conflict_features`
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY country ORDER BY conflict_year DESC) = 1
+),
+
+predictions AS (
+    -- Step 2: Feed that recent data into your BigQuery ML model
+    -- We explicitly select the original columns we need for the dashboard, 
+    -- PLUS the specific probability array column that ML.PREDICT generates.
+    SELECT 
+        country,
+        conflict_year,
+        total_events,
+        predicted_target_conflict_next_5_years_probs
+    FROM ML.PREDICT(
+        MODEL `global-conflicts-500009.raw_conflict_data.predict_conflict_risk`, 
+        (
+            SELECT 
+                country,
+                conflict_year,
+                total_fatalities,
+                total_events,
+                violence_types_present
+            FROM latest_country_data
+        )
+    )
+)
+
+-- Step 3: Clean up the output for your final dashboard
+SELECT 
+    country,
+    conflict_year AS last_data_year,
+    total_events AS recent_conflict_events,
+    
+    -- BQML outputs an array of probabilities. We extract the probability of '1' (Conflict)
+    ROUND(prob.prob * 100, 2) AS conflict_probability_percent,
+    
+    -- Categorize the risk based on the probability percentage
+    CASE 
+        WHEN prob.prob > 0.97 THEN 'Critical Risk'
+        WHEN prob.prob > 0.95 THEN 'High Risk'
+        WHEN prob.prob > 0.82 THEN 'Medium Risk'
+        ELSE 'Low Risk'
+    END AS risk_category
+
+FROM predictions, UNNEST(predicted_target_conflict_next_5_years_probs) AS prob
+WHERE prob.label = 1 
+ORDER BY conflict_probability_percent DESC
+    );
+  
+16:06:38.337642 [info ]: Finished running [  5.08s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+16:06:38.337724 [info ]: Finished running [ 20.21s] (10 nodes, 0 skipped, 1 errors)
+16:06:38.337819 [info ]:  Succeeded [  5.09s] model raw_conflict_data.mart_conflict_risk_predictions (table)
+16:06:38.374757 [info ]: New version available 2.0.0-preview.196 (run `dbt system update`)
+16:06:38.441951 [info ]: 
+==================== Execution Summary =====================
+Finished 'run' with 2 warnings and 1 error for target 'dev' [27.4s]
+Processed: 10 models
+Summary: 10 total | 9 success | 1 error
+==================== 2026-07-11T16:16:38.082011Z | 019f51f7-6eb3-74b0-a9ad-3f2dc9017640 ====================
+16:16:38.084465 [info ]: dbt-fusion 2.0.0-preview.193
+16:16:38.087275 [info ]: Started loading project
+16:16:38.105267 [info ]: Loading profiles.yml
+16:16:38.285655 [info ]: Loading packages.yml
+16:16:38.287531 [debug]:    Started loading packages
+16:16:38.299278 [debug]:     Loaded [  0.01s] packages
+16:16:38.303646 [info ]: Finished loading project [  0.22s]
+16:16:38.306716 [info ]: Started parsing
+16:16:38.365561 [debug]: Finished parsing models/schema.yml [  0.01s]
+16:16:38.366469 [debug]: Finished parsing models/sources.yml [  0.00s]
+16:16:38.381536 [debug]: Finished parsing models/dim_actors.sql [  0.01s]
+16:16:38.382088 [debug]: Finished parsing models/dim_country.sql [  0.00s]
+16:16:38.382503 [debug]: Finished parsing models/dim_dates.sql [  0.00s]
+16:16:38.383084 [debug]: Finished parsing models/dim_violence_type.sql [  0.00s]
+16:16:38.383575 [debug]: Finished parsing models/mart_conflict_fatalities_by_country.sql [  0.00s]
+16:16:38.384008 [debug]: Finished parsing models/mart_conflict_risk_predictions.sql [  0.00s]
+16:16:38.384569 [debug]: Finished parsing models/mart_country_conflict_features.sql [  0.00s]
+16:16:38.384979 [debug]: Finished parsing models/mart_global_trends_by_year.sql [  0.00s]
+16:16:38.385281 [debug]: Finished parsing models/mart_violence_types_overview.sql [  0.00s]
+16:16:38.385928 [debug]: Finished parsing models/stg_ucdp_conflicts.sql [  0.00s]
+16:16:38.398737 [debug]: Finished parsing target/generic_tests/not_null_mart_conflict_fatalities_by_country_country.sql [  0.00s]
+16:16:38.399013 [debug]: Finished parsing target/generic_tests/unique_mart_global_trends_by_year_conflict_year.sql [  0.00s]
+16:16:38.399264 [debug]: Finished parsing target/generic_tests/not_null_mart_global_trends_by_year_conflict_year.sql [  0.00s]
+16:16:38.399500 [debug]: Finished parsing target/generic_tests/not_null_stg_ucdp_conflicts_country.sql [  0.00s]
+16:16:38.399711 [debug]: Finished parsing target/generic_tests/unique_stg_ucdp_conflicts_event_id.sql [  0.00s]
+16:16:38.399942 [debug]: Finished parsing target/generic_tests/not_null_stg_ucdp_conflicts_event_id.sql [  0.00s]
+16:16:38.406906 [info ]: Finished parsing [  0.10s]
+16:16:38.411603 [info ]: Started scheduling
+16:16:38.414024 [info ]: Finished scheduling [  0.00s]
+16:16:38.417278 [debug]: Initializing schema store with entry: Frontier(CanonicalFqn { catalog: "global-conflicts-500009", schema: "raw_conflict_data", table: "raw_data" }) and interval: None
+16:16:38.564412 [debug]: No platform credentials found, skipping remote license
+16:16:38.565211 [debug]: License check failed: Feature not licensed: 'lineage'
+16:16:38.567286 [debug]:    Started downloading relations (1 items)
+16:16:42.066676 [debug]: Query executed on node unknown:
+SELECT
+    table_catalog,
+    table_schema,
+    table_name,
+    table_type
+FROM 
+    `global-conflicts-500009`.`raw_conflict_data`.INFORMATION_SCHEMA.TABLES
+16:16:42.068875 [debug]:   Finished [  3.50s] downloading relations (1 items)
+16:16:42.107556 [info ]: Started building task graph
+16:16:42.110632 [info ]: Finished building task graph [  0.00s]
+16:16:45.241156 [debug]: Query executed on node unknown:
+/* {"app": "dbt", "connection_name": "", "dbt_version": "2.0.0", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+    select distinct schema_name from `global-conflicts-500009`.INFORMATION_SCHEMA.SCHEMATA;
+  
+16:16:45.245683 [info ]: Started rendering (10 nodes)
+16:16:45.246286 [info ]: Started model raw_conflict_data.stg_ucdp_conflicts
+16:16:45.246556 [debug]: Started rendering model raw_conflict_data.stg_ucdp_conflicts
+16:16:45.258213 [debug]: Compiled SQL for node model.global_conflicts.stg_ucdp_conflicts at target/compiled/global_conflicts/models/stg_ucdp_conflicts.sql
+16:16:45.258681 [debug]: Finished rendering [  0.01s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:16:45.259579 [info ]: Started analyzing (10 nodes)
+16:16:45.259806 [debug]: Started analyzing model raw_conflict_data.stg_ucdp_conflicts
+16:16:45.278181 [debug]: Finished analyzing [  0.02s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:16:45.278237 [info ]: Started running (10 nodes)
+16:16:45.278274 [info ]: Started running model raw_conflict_data.stg_ucdp_conflicts
+16:16:45.282657 [debug]: Invalid value for on_schema_change (None) specified. Setting default value of ignore.
+16:16:45.654172 [debug]: Writing runtime sql for node "model.global_conflicts.stg_ucdp_conflicts"
+16:16:58.742444 [debug]: Query executed on node model.global_conflicts.stg_ucdp_conflicts:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.stg_ucdp_conflicts", "profile_name": "global_conflicts", "target_name": "dev"} */
+-- back compat for old kwarg name
+  
+  
+        
+            
+            
+            
+            
+        
+    
+
+    
+
+    merge into `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` as DBT_INTERNAL_DEST
+        using (
+
+WITH raw_conflicts AS (
+    SELECT *,
+    -- This stamps the data for our final records so we know when dbt ran
+    CURRENT_TIMESTAMP() as loaded_at_timestamp
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`raw_data`
+    
+    
+    -- We CANNOT filter by the timestamp because we are generating it live.
+    -- We MUST use the unique 'id' to detect genuinely new rows from the API.
+    WHERE id > (SELECT MAX(event_id) FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`)
+    
+),
+
+renamed_and_cleaned AS (
+    SELECT 
+        id AS event_id,
+        year AS conflict_year,
+        type_of_violence,
+        side_a,
+        side_b,
+        country,
+        region,
+        latitude,
+        longitude,
+        best AS estimated_fatalities,
+        date_start,
+        date_end,
+        loaded_at_timestamp
+    FROM raw_conflicts
+    WHERE country IS NOT NULL
+)
+
+SELECT * FROM renamed_and_cleaned
+        ) as DBT_INTERNAL_SOURCE
+        on ((DBT_INTERNAL_SOURCE.event_id = DBT_INTERNAL_DEST.event_id))
+
+    
+    when matched then update set
+        `event_id` = DBT_INTERNAL_SOURCE.`event_id`,`conflict_year` = DBT_INTERNAL_SOURCE.`conflict_year`,`type_of_violence` = DBT_INTERNAL_SOURCE.`type_of_violence`,`side_a` = DBT_INTERNAL_SOURCE.`side_a`,`side_b` = DBT_INTERNAL_SOURCE.`side_b`,`country` = DBT_INTERNAL_SOURCE.`country`,`region` = DBT_INTERNAL_SOURCE.`region`,`latitude` = DBT_INTERNAL_SOURCE.`latitude`,`longitude` = DBT_INTERNAL_SOURCE.`longitude`,`estimated_fatalities` = DBT_INTERNAL_SOURCE.`estimated_fatalities`,`date_start` = DBT_INTERNAL_SOURCE.`date_start`,`date_end` = DBT_INTERNAL_SOURCE.`date_end`,`loaded_at_timestamp` = DBT_INTERNAL_SOURCE.`loaded_at_timestamp`
+    
+
+    when not matched then insert
+        (`event_id`, `conflict_year`, `type_of_violence`, `side_a`, `side_b`, `country`, `region`, `latitude`, `longitude`, `estimated_fatalities`, `date_start`, `date_end`, `loaded_at_timestamp`)
+    values
+        (`event_id`, `conflict_year`, `type_of_violence`, `side_a`, `side_b`, `country`, `region`, `latitude`, `longitude`, `estimated_fatalities`, `date_start`, `date_end`, `loaded_at_timestamp`)
+
+
+    
+16:16:58.746186 [info ]: Finished running [ 13.47s] model raw_conflict_data.stg_ucdp_conflicts [success]
+16:16:58.746240 [info ]:  Succeeded [ 13.50s] model raw_conflict_data.stg_ucdp_conflicts (incremental)
+16:16:58.746644 [info ]: Started model raw_conflict_data.mart_country_conflict_features
+16:16:58.746662 [debug]: Started rendering model raw_conflict_data.mart_country_conflict_features
+16:16:58.746685 [info ]: Started model raw_conflict_data.dim_violence_type
+16:16:58.746699 [debug]: Started rendering model raw_conflict_data.dim_violence_type
+16:16:58.746718 [info ]: Started model raw_conflict_data.dim_dates
+16:16:58.746730 [debug]: Started rendering model raw_conflict_data.dim_dates
+16:16:58.746755 [info ]: Started model raw_conflict_data.dim_country
+16:16:58.746770 [debug]: Started rendering model raw_conflict_data.dim_country
+16:16:58.746792 [info ]: Started model raw_conflict_data.dim_actors
+16:16:58.746806 [debug]: Started rendering model raw_conflict_data.dim_actors
+16:16:58.749160 [debug]: Compiled SQL for node model.global_conflicts.mart_country_conflict_features at target/compiled/global_conflicts/models/mart_country_conflict_features.sql
+16:16:58.749180 [debug]: Compiled SQL for node model.global_conflicts.dim_dates at target/compiled/global_conflicts/models/dim_dates.sql
+16:16:58.749308 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_country_conflict_features [success]
+16:16:58.749365 [debug]: Started analyzing model raw_conflict_data.mart_country_conflict_features
+16:16:58.749390 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_dates [success]
+16:16:58.749423 [debug]: Started analyzing model raw_conflict_data.dim_dates
+16:16:58.749795 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.dim_dates [success]
+16:16:58.749812 [debug]: Compiled SQL for node model.global_conflicts.dim_actors at target/compiled/global_conflicts/models/dim_actors.sql
+16:16:58.749857 [info ]: Started running model raw_conflict_data.dim_dates
+16:16:58.749928 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_actors [success]
+16:16:58.749950 [debug]: Compiled SQL for node model.global_conflicts.dim_country at target/compiled/global_conflicts/models/dim_country.sql
+16:16:58.749964 [debug]: Started analyzing model raw_conflict_data.dim_actors
+16:16:58.750142 [debug]: Compiled SQL for node model.global_conflicts.dim_violence_type at target/compiled/global_conflicts/models/dim_violence_type.sql
+16:16:58.750277 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_violence_type [success]
+16:16:58.750320 [debug]: Started analyzing model raw_conflict_data.dim_violence_type
+16:16:58.750345 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_country [success]
+16:16:58.750374 [debug]: Started analyzing model raw_conflict_data.dim_country
+16:16:58.755851 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.mart_country_conflict_features [success]
+16:16:58.755921 [info ]: Started running model raw_conflict_data.mart_country_conflict_features
+16:16:58.756523 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.dim_country [success]
+16:16:58.756560 [info ]: Started running model raw_conflict_data.dim_country
+16:16:58.756979 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.dim_actors [success]
+16:16:58.757012 [info ]: Started running model raw_conflict_data.dim_actors
+16:16:58.757593 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.dim_violence_type [success]
+16:16:58.757629 [info ]: Started running model raw_conflict_data.dim_violence_type
+16:16:58.765568 [debug]: Writing runtime sql for node "model.global_conflicts.dim_country"
+16:16:59.055451 [debug]: Writing runtime sql for node "model.global_conflicts.dim_dates"
+16:16:59.368950 [debug]: Writing runtime sql for node "model.global_conflicts.dim_actors"
+16:16:59.407513 [debug]: Writing runtime sql for node "model.global_conflicts.mart_country_conflict_features"
+16:16:59.641438 [debug]: Writing runtime sql for node "model.global_conflicts.dim_violence_type"
+16:17:01.204552 [debug]: Query executed on node model.global_conflicts.dim_country:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_country", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+
+  create or replace view `global-conflicts-500009`.`raw_conflict_data`.`dim_country`
+  OPTIONS()
+  as WITH source_data AS (
+    SELECT DISTINCT country, region 
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+)
+
+SELECT 
+    to_hex(md5(cast(coalesce(cast(country as string), '_dbt_utils_surrogate_key_null_') as string))) AS country_id,
+    country,
+    region
+FROM source_data;
+
+
+16:17:01.205437 [info ]: Finished running [  2.45s] model raw_conflict_data.dim_country [success]
+16:17:01.205476 [info ]:  Succeeded [  2.46s] model raw_conflict_data.dim_country (view)
+16:17:02.645044 [debug]: Query executed on node model.global_conflicts.dim_dates:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_dates", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`dim_dates`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT DISTINCT
+    conflict_year AS date_key,
+    conflict_year AS year,
+    -- Add more calendar logic here as needed!
+    '2026' AS fiscal_year
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    );
+  
+16:17:02.645889 [info ]: Finished running [  3.90s] model raw_conflict_data.dim_dates [success]
+16:17:02.645952 [info ]:  Succeeded [  3.90s] model raw_conflict_data.dim_dates (table)
+16:17:02.646083 [info ]: Started model raw_conflict_data.mart_global_trends_by_year
+16:17:02.646106 [debug]: Started rendering model raw_conflict_data.mart_global_trends_by_year
+16:17:02.646129 [info ]: Started model raw_conflict_data.mart_violence_types_overview
+16:17:02.646138 [debug]: Started rendering model raw_conflict_data.mart_violence_types_overview
+16:17:02.646155 [info ]: Started model raw_conflict_data.mart_conflict_fatalities_by_country
+16:17:02.646165 [debug]: Started rendering model raw_conflict_data.mart_conflict_fatalities_by_country
+16:17:02.647515 [debug]: Compiled SQL for node model.global_conflicts.mart_violence_types_overview at target/compiled/global_conflicts/models/mart_violence_types_overview.sql
+16:17:02.647515 [debug]: Compiled SQL for node model.global_conflicts.mart_global_trends_by_year at target/compiled/global_conflicts/models/mart_global_trends_by_year.sql
+16:17:02.647568 [debug]: Compiled SQL for node model.global_conflicts.mart_conflict_fatalities_by_country at target/compiled/global_conflicts/models/mart_conflict_fatalities_by_country.sql
+16:17:02.647632 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_global_trends_by_year [success]
+16:17:02.647673 [debug]: Started analyzing model raw_conflict_data.mart_global_trends_by_year
+16:17:02.647687 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_violence_types_overview [success]
+16:17:02.647704 [debug]: Started analyzing model raw_conflict_data.mart_violence_types_overview
+16:17:02.647715 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+16:17:02.647729 [debug]: Started analyzing model raw_conflict_data.mart_conflict_fatalities_by_country
+16:17:02.650533 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+16:17:02.650566 [info ]: Started running model raw_conflict_data.mart_conflict_fatalities_by_country
+16:17:02.650581 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.mart_violence_types_overview [success]
+16:17:02.650603 [info ]: Started running model raw_conflict_data.mart_violence_types_overview
+16:17:02.650797 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.mart_global_trends_by_year [success]
+16:17:02.650821 [info ]: Started running model raw_conflict_data.mart_global_trends_by_year
+16:17:02.652951 [debug]: Writing runtime sql for node "model.global_conflicts.mart_conflict_fatalities_by_country"
+16:17:02.942917 [debug]: Writing runtime sql for node "model.global_conflicts.mart_global_trends_by_year"
+16:17:03.002543 [debug]: Writing runtime sql for node "model.global_conflicts.mart_violence_types_overview"
+16:17:03.286113 [debug]: Query executed on node model.global_conflicts.mart_country_conflict_features:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_country_conflict_features", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_country_conflict_features`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+WITH yearly_country_stats AS (
+    -- Step 1: Aggregate the data by Country and Year
+    SELECT 
+        country,
+        conflict_year,
+        SUM(estimated_fatalities) AS total_fatalities,
+        COUNT(event_id) AS total_events,
+        COUNT(DISTINCT type_of_violence) AS violence_types_present
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    GROUP BY country, conflict_year
+),
+
+rolling_features AS (
+    -- Step 2: Use Window Functions to "look ahead" 5 years
+    SELECT
+        country,
+        conflict_year,
+        total_fatalities,
+        total_events,
+        violence_types_present,
+        
+        -- This looks at the next 5 years for the same country and sums the events
+        SUM(total_events) OVER (
+            PARTITION BY country 
+            ORDER BY conflict_year 
+            RANGE BETWEEN 1 FOLLOWING AND 5 FOLLOWING
+        ) AS future_events_5yr
+    FROM yearly_country_stats
+)
+
+-- Step 3: Create the final binary label for the ML Model (1 = Yes, 0 = No)
+SELECT
+    country,
+    conflict_year,
+    total_fatalities,
+    total_events,
+    violence_types_present,
+    IF(IFNULL(future_events_5yr, 0) > 0, 1, 0) AS target_conflict_next_5_years
+FROM rolling_features
+    );
+  
+16:17:03.287166 [info ]: Finished running [  4.53s] model raw_conflict_data.mart_country_conflict_features [success]
+16:17:03.287204 [info ]:  Succeeded [  4.54s] model raw_conflict_data.mart_country_conflict_features (table)
+16:17:03.287269 [info ]: Started model raw_conflict_data.mart_conflict_risk_predictions
+16:17:03.287284 [debug]: Started rendering model raw_conflict_data.mart_conflict_risk_predictions
+16:17:03.288372 [debug]: Compiled SQL for node model.global_conflicts.mart_conflict_risk_predictions at target/compiled/global_conflicts/models/mart_conflict_risk_predictions.sql
+16:17:03.288448 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+16:17:03.288470 [info ]: Finished rendering [ 18.04s] (10 nodes, 0 skipped, 0 errors)
+16:17:03.288519 [debug]: Started analyzing model raw_conflict_data.mart_conflict_risk_predictions
+16:17:03.293022 [warn ]: [SyntaxInvalid (dbt0101)]: extraneous input '`global-conflicts-500009.raw_conflict_data.predict_conflict_risk`' expecting one of ',', 'COPARTITION', ')'
+  --> models/mart_conflict_risk_predictions.sql:26:15 (target/compiled/global_conflicts/models/mart_conflict_risk_predictions.sql:26:15)
+16:17:03.293484 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+16:17:03.293523 [info ]: Finished analyzing [ 18.03s] (10 nodes, 0 skipped, 0 errors)
+16:17:03.293575 [info ]: Started running model raw_conflict_data.mart_conflict_risk_predictions
+16:17:03.398463 [debug]: Query executed on node model.global_conflicts.dim_violence_type:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_violence_type", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`dim_violence_type`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT DISTINCT
+    to_hex(md5(cast(coalesce(cast(type_of_violence as string), '_dbt_utils_surrogate_key_null_') as string))) AS violence_type_id,
+    type_of_violence,
+    CASE 
+        WHEN type_of_violence = 1 THEN 'State-based'
+        WHEN type_of_violence = 2 THEN 'Non-state'
+        WHEN type_of_violence = 3 THEN 'One-sided'
+        ELSE 'Other'
+    END AS description
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    );
+  
+16:17:03.399708 [info ]: Finished running [  4.64s] model raw_conflict_data.dim_violence_type [success]
+16:17:03.399798 [info ]:  Succeeded [  4.65s] model raw_conflict_data.dim_violence_type (table)
+16:17:03.560519 [debug]: Query executed on node model.global_conflicts.dim_actors:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.dim_actors", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`dim_actors`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+WITH all_actors AS (
+    SELECT side_a AS actor_name FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+    UNION DISTINCT
+    SELECT side_b AS actor_name FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts`
+)
+
+SELECT 
+    to_hex(md5(cast(coalesce(cast(actor_name as string), '_dbt_utils_surrogate_key_null_') as string))) AS actor_id,
+    actor_name
+FROM all_actors
+WHERE actor_name IS NOT NULL
+    );
+  
+16:17:03.561573 [info ]: Finished running [  4.80s] model raw_conflict_data.dim_actors [success]
+16:17:03.561619 [info ]:  Succeeded [  4.81s] model raw_conflict_data.dim_actors (table)
+16:17:03.597403 [debug]: Writing runtime sql for node "model.global_conflicts.mart_conflict_risk_predictions"
+16:17:05.417041 [debug]: Query executed on node model.global_conflicts.mart_conflict_fatalities_by_country:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_conflict_fatalities_by_country", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+
+  create or replace view `global-conflicts-500009`.`raw_conflict_data`.`mart_conflict_fatalities_by_country`
+  OPTIONS()
+  as SELECT 
+    c.country,
+    c.region,
+    d.year AS conflict_year,
+    SUM(f.estimated_fatalities) AS total_fatalities,
+    COUNT(f.event_id) AS total_conflict_events
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` f
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_country` c ON f.country = c.country
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_dates` d ON f.conflict_year = d.year
+GROUP BY c.country, c.region, d.year
+ORDER BY total_fatalities DESC;
+
+
+16:17:05.417923 [info ]: Finished running [  2.77s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+16:17:05.417958 [info ]:  Succeeded [  2.77s] model raw_conflict_data.mart_conflict_fatalities_by_country (view)
+16:17:06.953900 [debug]: Query executed on node model.global_conflicts.mart_global_trends_by_year:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_global_trends_by_year", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_global_trends_by_year`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT 
+    d.year AS conflict_year,
+    COUNT(f.event_id) AS total_conflict_events,
+    SUM(f.estimated_fatalities) AS total_fatalities,
+    ROUND(SUM(f.estimated_fatalities) / COUNT(f.event_id), 2) AS average_fatalities_per_event
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` f
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_dates` d ON f.conflict_year = d.year
+GROUP BY d.year
+ORDER BY d.year DESC    
+    );
+  
+16:17:06.956020 [info ]: Finished running [  4.31s] model raw_conflict_data.mart_global_trends_by_year [success]
+16:17:06.956085 [info ]:  Succeeded [  4.31s] model raw_conflict_data.mart_global_trends_by_year (table)
+16:17:07.045291 [debug]: Query executed on node model.global_conflicts.mart_violence_types_overview:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_violence_types_overview", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_violence_types_overview`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+SELECT 
+    c.country,
+    c.region,
+    f.side_a,
+    f.side_b,
+    d.year AS date_year,
+    f.type_of_violence,
+    SUM(f.estimated_fatalities) AS total_fatalities,
+    COUNT(f.event_id) AS total_conflict_events,
+    case when f.type_of_violence = 1 then 'State-based'
+         when f.type_of_violence = 2 then 'Non-state-based'
+         when f.type_of_violence = 3 then 'One-sided-violence'
+         else 'Unknown'
+    end as violence_type
+FROM `global-conflicts-500009`.`raw_conflict_data`.`stg_ucdp_conflicts` f
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_country` c ON f.country = c.country
+LEFT JOIN `global-conflicts-500009`.`raw_conflict_data`.`dim_dates` d ON f.conflict_year = d.year
+GROUP BY c.country, c.region, d.year, f.type_of_violence, f.side_a, f.side_b, violence_type
+ORDER BY total_fatalities DESC
+    );
+  
+16:17:07.047798 [info ]: Finished running [  4.40s] model raw_conflict_data.mart_violence_types_overview [success]
+16:17:07.047870 [info ]:  Succeeded [  4.40s] model raw_conflict_data.mart_violence_types_overview (table)
+16:17:07.478852 [debug]: Query executed on node model.global_conflicts.mart_conflict_risk_predictions:
+/* {"app": "dbt", "dbt_version": "2.0.0", "node_id": "model.global_conflicts.mart_conflict_risk_predictions", "profile_name": "global_conflicts", "target_name": "dev"} */
+
+  
+    
+
+    create or replace table `global-conflicts-500009`.`raw_conflict_data`.`mart_conflict_risk_predictions`
+      
+    
+    
+
+    
+    OPTIONS()
+    as (
+      
+
+WITH latest_country_data AS (
+    -- Step 1: Grab only the most recent year of data for each country
+    -- We explicitly list only the features the ML model expects, plus the ones we want in the final output.
+    SELECT 
+        country,
+        conflict_year,
+        total_fatalities,
+        total_events,
+        violence_types_present
+    FROM `global-conflicts-500009`.`raw_conflict_data`.`mart_country_conflict_features`
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY country ORDER BY conflict_year DESC) = 1
+),
+
+predictions AS (
+    -- Step 2: Feed that recent data into your BigQuery ML model
+    -- We explicitly select the original columns we need for the dashboard, 
+    -- PLUS the specific probability array column that ML.PREDICT generates.
+    SELECT 
+        country,
+        conflict_year,
+        total_events,
+        predicted_target_conflict_next_5_years_probs
+    FROM ML.PREDICT(
+        MODEL `global-conflicts-500009.raw_conflict_data.predict_conflict_risk`, 
+        (
+            SELECT 
+                country,
+                conflict_year,
+                total_fatalities,
+                total_events,
+                violence_types_present
+            FROM latest_country_data
+        )
+    )
+)
+
+-- Step 3: Clean up the output for your final dashboard
+SELECT 
+    country,
+    conflict_year AS last_data_year,
+    total_events AS recent_conflict_events,
+    
+    -- BQML outputs an array of probabilities. We extract the probability of '1' (Conflict)
+    ROUND(prob.prob * 100, 2) AS conflict_probability_percent,
+    
+    -- Categorize the risk based on the probability percentage
+    CASE 
+        WHEN prob.prob > 0.97 THEN 'Critical Risk'
+        WHEN prob.prob > 0.95 THEN 'High Risk'
+        WHEN prob.prob > 0.82 THEN 'Medium Risk'
+        ELSE 'Low Risk'
+    END AS risk_category
+
+FROM predictions, UNNEST(predicted_target_conflict_next_5_years_probs) AS prob
+WHERE prob.label = 1 
+ORDER BY conflict_probability_percent DESC
+    );
+  
+16:17:07.480921 [info ]: Finished running [  4.19s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+16:17:07.481054 [info ]: Finished running [ 22.20s] (10 nodes, 0 skipped, 0 errors)
+16:17:07.481132 [info ]:  Succeeded [  4.19s] model raw_conflict_data.mart_conflict_risk_predictions (table)
+16:17:07.516623 [info ]: New version available 2.0.0-preview.196 (run `dbt system update`)
+16:17:07.598892 [info ]: 
+==================== Execution Summary =====================
+Finished 'run' with 1 warning for target 'dev' [29.5s]
+Processed: 10 models
+Summary: 10 total | 10 success
