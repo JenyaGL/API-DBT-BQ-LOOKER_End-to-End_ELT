@@ -11,7 +11,7 @@ last_week = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
 print(f"Starting incremental pull for dates: {last_week} to {today}")
 
 # 1. Fetch data from UCDP API
-TOKEN = "e56a0e750566f56a" # public token for UCDP API
+TOKEN = "e56a0e750566f56a"
 headers = {"x-ucdp-access-token": TOKEN}
 url = "https://ucdpapi.pcr.uu.se/api/gedevents/26.1"
 
@@ -65,7 +65,7 @@ if len(all_new_events) > 0:
 
     # 3. Upload to Google Cloud Storage as a NEW file
     print("Uploading to Google Cloud Data Lake...")
-    client = storage.Client()
+    client = storage.Client.from_service_account_json('global-conflicts-500009-e9d58d2e16ac.json')
     bucket = client.bucket('ucdp_raw_data')
     
     # We use the dynamic filename here so it creates a brand new file in the bucket 

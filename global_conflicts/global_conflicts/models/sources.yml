@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: raw_ucdp
+    database: global-conflicts-500009  # GCP Project ID
+    schema: raw_conflict_data          # dataset in BigQuery
+    tables:
+      - name: raw_data
+        config:
+          loaded_at_field: _loaded_at
+          freshness:
+            warn_after:
+              count: 7
+              period: day
+            error_after:
+              count: 14
+              period: day
