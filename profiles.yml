@@ -9,4 +9,4 @@ global_conflicts:
       threads: 4
       # This is the magic line that points to the temporary 
       # credentials file we created in the GitHub Action!
-      keyfile: /Users/mymac/Projects/learning_dbt/global-conflicts-500009-e9d58d2e16ac.json
+      keyfile: /path/to/your/gcp-credentials.json
