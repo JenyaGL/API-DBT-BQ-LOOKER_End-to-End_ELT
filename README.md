@@ -45,11 +45,11 @@ BigQuery Scheduled Queries are set up to automatically retrain the ML model week
 
 https://datastudio.google.com/reporting/c7619470-2730-41b0-8c55-73a0e43db142
 
-<img width="1024" height="696" alt="image" src="https://github.com/user-attachments/assets/3f8e7dfe-0847-49e1-b51d-1ad107f6ad0d" />
+<img width="1079" height="811" alt="image" src="https://github.com/user-attachments/assets/e6cc1a6f-c3ad-4d99-99b2-20d6adfd8337" />
 
-<img width="1075" height="774" alt="image" src="https://github.com/user-attachments/assets/df08137b-44f8-4b89-bea1-fd504939c4db" />
+<img width="1077" height="809" alt="image" src="https://github.com/user-attachments/assets/faa676c9-fabb-477e-b543-b22d2ea1c334" />
 
-<img width="1024" height="687" alt="image" src="https://github.com/user-attachments/assets/04207a9e-8f29-46a0-bbbf-9daff61bb697" />
+<img width="1078" height="806" alt="image" src="https://github.com/user-attachments/assets/ee0b61d6-8a6f-4e03-b564-19d16ad16ea0" />
 
 
 Building this pipeline from scratch was a rigorous exercise in Data Engineering best practices. Key challenges and learnings included:
