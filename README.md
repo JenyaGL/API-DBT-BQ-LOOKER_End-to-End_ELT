@@ -22,7 +22,7 @@ Version Control & CI/CD: Git & GitHub actions
 
 **The data flows through the architecture in the following stages:**
 
-**Automated Extract & Load (Data Lake):** 
+* **Automated Extract & Load (Data Lake):** 
 A Python script fetches the latest 7 days of conflict events using the UCDP API. It attaches a `_loaded_at` audit timestamp to every row and uploads the data to Google Cloud Storage using dynamic filenames.
 
 * **Warehouse Integration (Wildcard URIs):** 
