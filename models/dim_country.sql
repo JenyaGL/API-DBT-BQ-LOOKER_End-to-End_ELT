@@ -1,5 +1,9 @@
+{{ config(materialized='table') }}
+
 WITH source_data AS (
-    SELECT DISTINCT country, region 
+    SELECT
+    DISTINCT country,
+             region 
     FROM {{ ref('stg_ucdp_conflicts') }}
 )
 

@@ -23,7 +23,6 @@ models:
 
   # ---------------------------------------------------------
   # 2. MART MODELS (BUSINESS LAYER)
-
   - name: mart_conflict_fatalities_by_country
     columns:
       - name: country
