@@ -54,15 +54,16 @@ https://datastudio.google.com/reporting/c7619470-2730-41b0-8c55-73a0e43db142
 
 Building this pipeline from scratch was a rigorous exercise in Data Engineering best practices. Key challenges and learnings included:
 
-Evolving the Pipeline Architecture: Transitioned from a manual CSV extraction process to a fully automated API Python script, implementing an append-only architecture with audit trails (_loaded_at) and SQL-based deduplication logic to ensure data integrity.
+* **Evolving the Pipeline Architecture:** 
+Transitioned from a manual CSV extraction process to a fully automated API Python script, implementing an append-only architecture with audit trails (`_loaded_at`) and SQL-based deduplication logic to ensure data integrity.
 
-Navigating Git & Version Control: Successfully resolved complex Git merge conflicts (reconciling divergent branches between local and remote environments) and configured upstream tracking to push the repository to GitHub.
+* **Navigating Git & Version Control:** 
+Successfully resolved complex Git merge conflicts (reconciling divergent branches between local and remote environments) and configured upstream tracking to push the repository to GitHub.
 
-dbt Configuration & Security: Managed Google Cloud Service Account credentials securely, troubleshooting absolute vs. relative paths in the profiles.yml file to successfully link dbt to BigQuery.
+* **dbt Configuration & Security:** Managed Google Cloud Service Account credentials securely, troubleshooting absolute vs. relative paths in the `profiles.yml` file to successfully link dbt to BigQuery.
 
-Strict SQL Typing in BigQuery: Debugged strict boolean evaluation errors in BigQuery, learning that BigQuery requires explicit logical comparisons (e.g., type_of_violence = 1) rather than treating integers or strings as booleans in IF and CASE statements.
+* **Strict SQL Typing in BigQuery:** Debugged strict boolean evaluation errors in BigQuery, learning that BigQuery requires explicit logical comparisons (e.g., `type_of_violence = 1`) rather than treating integers or strings as booleans in IF and CASE statements.
 
-Cost Optimization & Data Contracts: Refactored dbt inference models to completely remove SELECT * statements. Explicitly defining columns established a strict data contract and significantly reduced BigQuery scanning costs via columnar storage optimization.
+* **Cost Optimization & Data Contracts:** Refactored dbt inference models to completely remove `SELECT *` statements. Explicitly defining columns established a strict data contract and significantly reduced BigQuery scanning costs via columnar storage optimization.
 
-
-Machine Learning Nuances: Engineered solutions for mathematical overflow (converting decimal probabilities correctly)
+* **Machine Learning Nuances:** Engineered solutions for mathematical overflow (converting decimal probabilities correctly). We also solved an ML Bias glitch where stable nations like Australia were falsely flagged as high risk. By engineering GDP features (`fatalities_per_100k`), the model mathematically learned the difference between isolated events in a massive nation versus systemic collapse.
