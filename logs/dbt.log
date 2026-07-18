@@ -6834,3 +6834,183 @@ Summary: 17 total | 17 success
 09:18:26.518301 [info ]: started
 ==================== 2026-07-18T09:40:59.425191Z | 019f7499-b99f-7850-a7eb-f4bbd3b62d9a ====================
 09:40:59.496717 [info ]: started
+==================== 2026-07-18T10:01:44.394368Z | 019f74ac-b8c9-7440-9deb-a3de036b2103 ====================
+10:01:44.511243 [info ]: started
+==================== 2026-07-18T10:06:13.932582Z | 019f74b0-d5ab-7cf0-9eca-adabf1af7910 ====================
+10:06:13.932678 [info ]: dbt-fusion 2.0.0-preview.193
+10:06:13.932764 [warn ]: [Generic (dbt1000)]: --write-metadata: column schemas will not be populated without `--static-analysis strict`; add `--write-lineage` to also write column-level lineage.
+10:06:13.932824 [debug]: Partial parse: kind filter = None, unique_id filter = None
+10:06:13.941509 [debug]: Partial parse: profiles.yml content changed, invalidating cache
+10:06:13.942330 [debug]: Partial parse: no previous state found, performing full parse
+10:06:13.942371 [info ]: Started loading project
+10:06:13.942952 [info ]: Loading profiles.yml
+10:06:14.096214 [info ]: Loading packages.yml
+10:06:14.096329 [debug]:    Started loading packages
+10:06:14.099235 [debug]:     Loaded [  0.00s] packages
+10:06:14.099744 [info ]: Finished loading project [  0.16s]
+10:06:14.100118 [info ]: Started parsing
+10:06:14.127032 [debug]: Finished parsing models/schema.yml [  0.00s]
+10:06:14.127390 [debug]: Finished parsing models/sources.yml [  0.00s]
+10:06:14.128695 [debug]: Finished parsing models/dim_actors.sql [  0.00s]
+10:06:14.129264 [debug]: Finished parsing models/dim_country.sql [  0.00s]
+10:06:14.129648 [debug]: Finished parsing models/dim_dates.sql [  0.00s]
+10:06:14.130152 [debug]: Finished parsing models/dim_violence_type.sql [  0.00s]
+10:06:14.130489 [debug]: Finished parsing models/mart_conflict_fatalities_by_country.sql [  0.00s]
+10:06:14.130801 [debug]: Finished parsing models/mart_conflict_risk_predictions.sql [  0.00s]
+10:06:14.131070 [debug]: Finished parsing models/mart_country_conflict_features.sql [  0.00s]
+10:06:14.131410 [debug]: Finished parsing models/mart_global_trends_by_year.sql [  0.00s]
+10:06:14.131723 [debug]: Finished parsing models/mart_violence_types_overview.sql [  0.00s]
+10:06:14.132138 [debug]: Finished parsing models/stg_ucdp_conflicts.sql [  0.00s]
+10:06:14.132414 [debug]: Finished parsing models/stg_worldbank_demographics.sql [  0.00s]
+10:06:14.137765 [debug]: Finished parsing target/generic_tests/not_null_mart_conflict_fatalities_by_country_country.sql [  0.00s]
+10:06:14.138005 [debug]: Finished parsing target/generic_tests/unique_mart_global_trends_by_year_conflict_year.sql [  0.00s]
+10:06:14.138237 [debug]: Finished parsing target/generic_tests/not_null_mart_global_trends_by_year_conflict_year.sql [  0.00s]
+10:06:14.138473 [debug]: Finished parsing target/generic_tests/not_null_stg_ucdp_conflicts_country.sql [  0.00s]
+10:06:14.138679 [debug]: Finished parsing target/generic_tests/unique_stg_ucdp_conflicts_event_id.sql [  0.00s]
+10:06:14.138896 [debug]: Finished parsing target/generic_tests/not_null_stg_ucdp_conflicts_event_id.sql [  0.00s]
+10:06:14.141139 [info ]: Finished parsing [  0.04s]
+10:06:14.150904 [info ]: Started scheduling
+10:06:14.151106 [info ]: Finished scheduling [  0.00s]
+10:06:14.151859 [debug]: Initializing schema store with entry: Frontier(CanonicalFqn { catalog: "global-conflicts-500009", schema: "raw_conflict_data", table: "raw_data" }) and interval: None
+10:06:14.151885 [debug]: Initializing schema store with entry: Frontier(CanonicalFqn { catalog: "global-conflicts-500009", schema: "raw_conflict_data", table: "raw_worldbank_demographics" }) and interval: None
+10:06:14.340362 [debug]: No platform credentials found, skipping remote license
+10:06:14.340419 [debug]: License check failed: Feature not licensed: 'lineage'
+10:06:14.340580 [debug]:    Started downloading relations (1 items)
+10:06:14.340783 [debug]:     Failed [  0.00s] downloading relations (error: Configuration Error: Keyfile '/Users/mymac/Projects/learning_dbt/global-conflicts-500009-e9d58d2e16ac.json' does not exist)
+10:06:14.369285 [info ]: Started building task graph
+10:06:14.369474 [info ]: Finished building task graph [  0.00s]
+10:06:14.386315 [info ]: Started rendering (17 nodes)
+10:06:14.386386 [info ]: Started test raw_conflict_data_dbt_test__audit.unique_stg_ucdp_conflicts_event_id
+10:06:14.386399 [debug]: Started rendering test raw_conflict_data_dbt_test__audit.unique_stg_ucdp_conflicts_event_id
+10:06:14.386424 [info ]: Started test raw_conflict_data_dbt_test__audit.unique_mart_global_trends_by_year_conflict_year
+10:06:14.386430 [debug]: Started rendering test raw_conflict_data_dbt_test__audit.unique_mart_global_trends_by_year_conflict_year
+10:06:14.386439 [info ]: Started test raw_conflict_data_dbt_test__audit.not_null_stg_ucdp_conflicts_event_id
+10:06:14.386445 [debug]: Started rendering test raw_conflict_data_dbt_test__audit.not_null_stg_ucdp_conflicts_event_id
+10:06:14.386454 [info ]: Started test raw_conflict_data_dbt_test__audit.not_null_stg_ucdp_conflicts_country
+10:06:14.386458 [debug]: Started rendering test raw_conflict_data_dbt_test__audit.not_null_stg_ucdp_conflicts_country
+10:06:14.386468 [info ]: Started test raw_conflict_data_dbt_test__audit.not_null_mart_global_trends_by_year_conflict_year
+10:06:14.386474 [debug]: Started rendering test raw_conflict_data_dbt_test__audit.not_null_mart_global_trends_by_year_conflict_year
+10:06:14.386487 [info ]: Started test raw_conflict_data_dbt_test__audit.not_null_mart_conflict_fatalities_by_country_country
+10:06:14.386496 [debug]: Started rendering test raw_conflict_data_dbt_test__audit.not_null_mart_conflict_fatalities_by_country_country
+10:06:14.386509 [info ]: Started model raw_conflict_data.mart_violence_types_overview
+10:06:14.386515 [debug]: Started rendering model raw_conflict_data.mart_violence_types_overview
+10:06:14.386536 [info ]: Started model raw_conflict_data.mart_global_trends_by_year
+10:06:14.386547 [debug]: Started rendering model raw_conflict_data.mart_global_trends_by_year
+10:06:14.386563 [info ]: Started model raw_conflict_data.mart_conflict_risk_predictions
+10:06:14.386573 [debug]: Started rendering model raw_conflict_data.mart_conflict_risk_predictions
+10:06:14.386583 [info ]: Started model raw_conflict_data.mart_country_conflict_features
+10:06:14.386588 [debug]: Started rendering model raw_conflict_data.mart_country_conflict_features
+10:06:14.386600 [info ]: Started model raw_conflict_data.stg_worldbank_demographics
+10:06:14.386605 [debug]: Started rendering model raw_conflict_data.stg_worldbank_demographics
+10:06:14.386614 [info ]: Started model raw_conflict_data.mart_conflict_fatalities_by_country
+10:06:14.386620 [debug]: Started rendering model raw_conflict_data.mart_conflict_fatalities_by_country
+10:06:14.386634 [info ]: Started model raw_conflict_data.dim_violence_type
+10:06:14.386643 [debug]: Started rendering model raw_conflict_data.dim_violence_type
+10:06:14.386657 [info ]: Started model raw_conflict_data.dim_dates
+10:06:14.386667 [debug]: Started rendering model raw_conflict_data.dim_dates
+10:06:14.386679 [info ]: Started model raw_conflict_data.dim_country
+10:06:14.386691 [debug]: Started rendering model raw_conflict_data.dim_country
+10:06:14.386706 [info ]: Started model raw_conflict_data.dim_actors
+10:06:14.386711 [debug]: Started rendering model raw_conflict_data.dim_actors
+10:06:14.386725 [info ]: Started model raw_conflict_data.stg_ucdp_conflicts
+10:06:14.386730 [debug]: Started rendering model raw_conflict_data.stg_ucdp_conflicts
+10:06:14.387650 [debug]: Compiled SQL for node model.global_conflicts.mart_global_trends_by_year at target/compiled/global_conflicts/models/mart_global_trends_by_year.sql
+10:06:14.387892 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_global_trends_by_year [success]
+10:06:14.388055 [info ]: Started analyzing (17 nodes)
+10:06:14.388082 [debug]: Started analyzing model raw_conflict_data.mart_global_trends_by_year
+10:06:14.388148 [debug]: Compiled SQL for node test.global_conflicts.not_null_stg_ucdp_conflicts_event_id.37a52a42d9 at target/compiled/global_conflicts/target/generic_tests/not_null_stg_ucdp_conflicts_event_id.sql
+10:06:14.388418 [debug]: Compiled SQL for node model.global_conflicts.stg_worldbank_demographics at target/compiled/global_conflicts/models/stg_worldbank_demographics.sql
+10:06:14.388541 [debug]: Compiled SQL for node test.global_conflicts.not_null_mart_global_trends_by_year_conflict_year.1168b3f9b1 at target/compiled/global_conflicts/target/generic_tests/not_null_mart_global_trends_by_year_conflict_year.sql
+10:06:14.388593 [debug]: Compiled SQL for node test.global_conflicts.not_null_stg_ucdp_conflicts_country.84b6a66830 at target/compiled/global_conflicts/target/generic_tests/not_null_stg_ucdp_conflicts_country.sql
+10:06:14.388798 [debug]: Compiled SQL for node model.global_conflicts.mart_country_conflict_features at target/compiled/global_conflicts/models/mart_country_conflict_features.sql
+10:06:14.388930 [debug]: Compiled SQL for node model.global_conflicts.mart_violence_types_overview at target/compiled/global_conflicts/models/mart_violence_types_overview.sql
+10:06:14.387985 [debug]: Compiled SQL for node model.global_conflicts.dim_dates at target/compiled/global_conflicts/models/dim_dates.sql
+10:06:14.388980 [debug]: Compiled SQL for node model.global_conflicts.mart_conflict_fatalities_by_country at target/compiled/global_conflicts/models/mart_conflict_fatalities_by_country.sql
+10:06:14.388984 [debug]: Compiled SQL for node test.global_conflicts.unique_stg_ucdp_conflicts_event_id.d7a1c9ec33 at target/compiled/global_conflicts/target/generic_tests/unique_stg_ucdp_conflicts_event_id.sql
+10:06:14.389069 [debug]: Compiled SQL for node model.global_conflicts.mart_conflict_risk_predictions at target/compiled/global_conflicts/models/mart_conflict_risk_predictions.sql
+10:06:14.389150 [debug]: Compiled SQL for node test.global_conflicts.not_null_mart_conflict_fatalities_by_country_country.a58711ee87 at target/compiled/global_conflicts/target/generic_tests/not_null_mart_conflict_fatalities_by_country_country.sql
+10:06:14.389268 [debug]: Compiled SQL for node test.global_conflicts.unique_mart_global_trends_by_year_conflict_year.b50f7d2b8b at target/compiled/global_conflicts/target/generic_tests/unique_mart_global_trends_by_year_conflict_year.sql
+10:06:14.389311 [debug]: Finished rendering [  0.00s] test raw_conflict_data_dbt_test__audit.not_null_stg_ucdp_conflicts_event_id [success]
+10:06:14.389355 [debug]: Started analyzing test raw_conflict_data_dbt_test__audit.not_null_stg_ucdp_conflicts_event_id
+10:06:14.389370 [debug]: Finished rendering [  0.00s] model raw_conflict_data.stg_worldbank_demographics [success]
+10:06:14.389392 [debug]: Started analyzing model raw_conflict_data.stg_worldbank_demographics
+10:06:14.389474 [debug]: Finished rendering [  0.00s] test raw_conflict_data_dbt_test__audit.not_null_mart_global_trends_by_year_conflict_year [success]
+10:06:14.389526 [debug]: Started analyzing test raw_conflict_data_dbt_test__audit.not_null_mart_global_trends_by_year_conflict_year
+10:06:14.389541 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_country_conflict_features [success]
+10:06:14.389561 [debug]: Started analyzing model raw_conflict_data.mart_country_conflict_features
+10:06:14.389569 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_violence_types_overview [success]
+10:06:14.389586 [debug]: Started analyzing model raw_conflict_data.mart_violence_types_overview
+10:06:14.389593 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_dates [success]
+10:06:14.389670 [debug]: Started analyzing model raw_conflict_data.dim_dates
+10:06:14.389791 [debug]: Compiled SQL for node model.global_conflicts.dim_actors at target/compiled/global_conflicts/models/dim_actors.sql
+10:06:14.390198 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+10:06:14.390243 [debug]: Started analyzing model raw_conflict_data.mart_conflict_risk_predictions
+10:06:14.390256 [debug]: Finished rendering [  0.00s] test raw_conflict_data_dbt_test__audit.not_null_mart_conflict_fatalities_by_country_country [success]
+10:06:14.390279 [debug]: Started analyzing test raw_conflict_data_dbt_test__audit.not_null_mart_conflict_fatalities_by_country_country
+10:06:14.390288 [debug]: Finished rendering [  0.00s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+10:06:14.390294 [debug]: Compiled SQL for node model.global_conflicts.dim_country at target/compiled/global_conflicts/models/dim_country.sql
+10:06:14.390308 [debug]: Started analyzing model raw_conflict_data.mart_conflict_fatalities_by_country
+10:06:14.390316 [debug]: Finished rendering [  0.00s] test raw_conflict_data_dbt_test__audit.unique_stg_ucdp_conflicts_event_id [success]
+10:06:14.390342 [debug]: Started analyzing test raw_conflict_data_dbt_test__audit.unique_stg_ucdp_conflicts_event_id
+10:06:14.390362 [error]: [InvalidConfig (dbt1005)]: Configuration Error: Keyfile '/Users/mymac/Projects/learning_dbt/global-conflicts-500009-e9d58d2e16ac.json' does not exist
+(in models/stg_ucdp_conflicts.sql:14:11)
+  --> models/stg_ucdp_conflicts.sql:14:11
+10:06:14.390373 [debug]: Compiled SQL for node model.global_conflicts.dim_violence_type at target/compiled/global_conflicts/models/dim_violence_type.sql
+10:06:14.390382 [debug]: Finished rendering [  0.00s] model raw_conflict_data.stg_ucdp_conflicts [error]
+10:06:14.390410 [debug]: Started analyzing model raw_conflict_data.stg_ucdp_conflicts
+10:06:14.390446 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.stg_ucdp_conflicts [skipped]
+10:06:14.390570 [info ]:     Failed [  0.00s] model raw_conflict_data.stg_ucdp_conflicts (incremental)
+10:06:14.390649 [debug]: Finished rendering [  0.00s] test raw_conflict_data_dbt_test__audit.unique_mart_global_trends_by_year_conflict_year [success]
+10:06:14.390674 [debug]: Started analyzing test raw_conflict_data_dbt_test__audit.unique_mart_global_trends_by_year_conflict_year
+10:06:14.390683 [debug]: Finished rendering [  0.00s] test raw_conflict_data_dbt_test__audit.not_null_stg_ucdp_conflicts_country [success]
+10:06:14.390709 [debug]: Started analyzing test raw_conflict_data_dbt_test__audit.not_null_stg_ucdp_conflicts_country
+10:06:14.390716 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_country [success]
+10:06:14.390723 [debug]: Started analyzing model raw_conflict_data.dim_country
+10:06:14.390730 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_violence_type [success]
+10:06:14.390737 [debug]: Started analyzing model raw_conflict_data.dim_violence_type
+10:06:14.390768 [debug]: Finished rendering [  0.00s] model raw_conflict_data.dim_actors [success]
+10:06:14.390780 [info ]: Finished rendering [  0.00s] (17 nodes, 0 skipped, 1 errors)
+10:06:14.390810 [debug]: Started analyzing model raw_conflict_data.dim_actors
+10:06:14.391189 [debug]: Finished analyzing [  0.00s] test raw_conflict_data_dbt_test__audit.not_null_stg_ucdp_conflicts_event_id [success]
+10:06:14.391231 [info ]:  Succeeded [  0.00s] test  not_null_stg_ucdp_conflicts_event_id (models/schema.yml:14:12)
+10:06:14.391265 [debug]: Finished analyzing [  0.00s] test raw_conflict_data_dbt_test__audit.not_null_mart_conflict_fatalities_by_country_country [success]
+10:06:14.391288 [info ]:  Succeeded [  0.00s] test  not_null_mart_conflict_fatalities_by_country_country (models/schema.yml:29:17)
+10:06:14.391301 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.dim_dates [success]
+10:06:14.391319 [info ]:  Succeeded [  0.00s] model raw_conflict_data.dim_dates (table)
+10:06:14.391331 [debug]: Finished analyzing [  0.00s] test raw_conflict_data_dbt_test__audit.not_null_mart_global_trends_by_year_conflict_year [success]
+10:06:14.391349 [info ]:  Succeeded [  0.00s] test  not_null_mart_global_trends_by_year_conflict_year (models/schema.yml:34:25)
+10:06:14.391409 [debug]: Finished analyzing [  0.00s] test raw_conflict_data_dbt_test__audit.not_null_stg_ucdp_conflicts_country [success]
+10:06:14.391433 [info ]:  Succeeded [  0.00s] test  not_null_stg_ucdp_conflicts_country (models/schema.yml:19:13)
+10:06:14.393795 [debug]: Finished analyzing [  0.00s] test raw_conflict_data_dbt_test__audit.unique_stg_ucdp_conflicts_event_id [success]
+10:06:14.393834 [info ]:  Succeeded [  0.01s] test  unique_stg_ucdp_conflicts_event_id (models/schema.yml:13:12)
+10:06:14.393929 [debug]: Finished analyzing [  0.00s] test raw_conflict_data_dbt_test__audit.unique_mart_global_trends_by_year_conflict_year [success]
+10:06:14.393945 [info ]:  Succeeded [  0.01s] test  unique_mart_global_trends_by_year_conflict_year (models/schema.yml:34:17)
+10:06:14.394966 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.mart_violence_types_overview [success]
+10:06:14.395008 [info ]:  Succeeded [  0.01s] model raw_conflict_data.mart_violence_types_overview (table)
+10:06:14.395025 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.mart_global_trends_by_year [success]
+10:06:14.395038 [info ]:  Succeeded [  0.01s] model raw_conflict_data.mart_global_trends_by_year (table)
+10:06:14.395080 [debug]: Finished analyzing [  0.00s] model raw_conflict_data.mart_conflict_fatalities_by_country [success]
+10:06:14.395099 [info ]:  Succeeded [  0.01s] model raw_conflict_data.mart_conflict_fatalities_by_country (view)
+10:06:14.396207 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.dim_actors [success]
+10:06:14.396233 [info ]:  Succeeded [  0.01s] model raw_conflict_data.dim_actors (table)
+10:06:14.396306 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.dim_country [success]
+10:06:14.396335 [info ]:  Succeeded [  0.01s] model raw_conflict_data.dim_country (table)
+10:06:14.396422 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.dim_violence_type [success]
+10:06:14.396441 [info ]:  Succeeded [  0.01s] model raw_conflict_data.dim_violence_type (table)
+10:06:14.396736 [warn ]: [SyntaxInvalid (dbt0101)]: extraneous input '`global-conflicts-500009.raw_conflict_data.predict_conflict_risk`' expecting one of ',', 'COPARTITION', ')'
+  --> models/mart_conflict_risk_predictions.sql:29:15 (target/compiled/global_conflicts/models/mart_conflict_risk_predictions.sql:29:15)
+10:06:14.396807 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.mart_conflict_risk_predictions [success]
+10:06:14.396835 [info ]:  Succeeded [  0.01s] model raw_conflict_data.mart_conflict_risk_predictions (table)
+10:06:14.397090 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.stg_worldbank_demographics [success]
+10:06:14.397105 [info ]:  Succeeded [  0.01s] model raw_conflict_data.stg_worldbank_demographics (view)
+10:06:14.399694 [debug]: Finished analyzing [  0.01s] model raw_conflict_data.mart_country_conflict_features [success]
+10:06:14.399723 [info ]: Finished analyzing [  0.01s] (17 nodes, 1 skipped, 0 errors)
+10:06:14.399745 [info ]:  Succeeded [  0.01s] model raw_conflict_data.mart_country_conflict_features (table)
+10:06:14.990781 [info ]: New version available 2.0.0-preview.200 (run `dbt system update`)
+10:06:15.058838 [info ]: 
+==================== Execution Summary =====================
+Finished 'compile' with 2 warnings and 1 error for target 'dev' [1.1s]
+Processed: 11 models | 6 tests
+Summary: 17 total | 16 success | 1 error
+==================== 2026-07-18T10:06:15.079175Z | 019f74b0-da26-72a1-8000-de16dcae85c2 ====================
+10:06:15.125965 [info ]: started
