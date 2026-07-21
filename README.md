@@ -1,11 +1,10 @@
+Its an OSINT project that reflects historial conflict data across the world, updates on a weekly basis via github actions orchistration and provides a probability analysis on near future conflict across the world. 
 
   **The Uppsala Conflict Data Program (UCDP)**
 
 This project leverages data from the Uppsala Conflict Data Program (UCDP) alongside GDP data from the World Bank.
-The UCDP is highly respected by researchers and is considered the gold standard for global conflict data. The dataset contains detailed records of individual conflict events worldwide, including precise dates, locations, the specific actors involved, and estimated fatalities.
 
 The UCDP is highly respected by researchers and is considered the gold standard for global conflict data. 
-
 The dataset contains detailed records of individual conflict events worldwide, including precise dates, locations, the specific actors involved, and estimated fatalities.
 
 The goal of this project is to take this raw, historical conflict data and build a fully automated modern data stack that not only aggregates historical trends but actively predicts the probability of future conflicts occurring in specific countries.
